@@ -684,6 +684,69 @@ function filterFL() {
   document.getElementById('flCnt').textContent = vis + ' melumat gosterilir';
 }
 
+function exportSvc() {
+  if (!S.length) { alert('Melumat hələ yüklənməyib!'); return; }
+  var rows = [['No', 'Qurum', 'Xidmet adi', 'Inteqrasiya formasi', 'Platforma', 'Il']];
+  var n = 1;
+  for (var i = 0; i < S.length; i++) {
+    for (var j = 0; j < S[i].svcs.length; j++) {
+      var s = S[i].svcs[j];
+      rows.push([n++, S[i].name, s.name, s.form, s.platform, s.year]);
+    }
+  }
+  writeExcel([{name:'Xidmetler', data:rows}], 'mygov_xidmetler.xlsx');
+}
+
+function exportData() {
+  if (!D.length) { alert('Melumat hələ yüklənməyib!'); return; }
+  var rows = [['No', 'Melumat adi', 'VEB Kateqoriya', 'Mobil Kateqoriya', 'Qurum', 'Il', 'PDF/Share']];
+  for (var i = 0; i < D.length; i++) {
+    var d = D[i];
+    rows.push([i+1, d.name, d.veb, d.mob, d.qurum, d.year, d.pdf]);
+  }
+  writeExcel([{name:'Melumatlar', data:rows}], 'mygov_melumatlar.xlsx');
+}
+
+function exportAll() {
+  if (!S.length || !D.length) { alert('Melumat hələ yüklənməyib!'); return; }
+  var svcRows = [['No', 'Qurum', 'Xidmet adi', 'Inteqrasiya formasi', 'Platforma', 'Il']];
+  var n = 1;
+  for (var i = 0; i < S.length; i++) {
+    for (var j = 0; j < S[i].svcs.length; j++) {
+      var s = S[i].svcs[j];
+      svcRows.push([n++, S[i].name, s.name, s.form, s.platform, s.year]);
+    }
+  }
+  var dataRows = [['No', 'Melumat adi', 'VEB Kateqoriya', 'Mobil Kateqoriya', 'Qurum', 'Il', 'PDF/Share']];
+  for (var i = 0; i < D.length; i++) {
+    var d = D[i];
+    dataRows.push([i+1, d.name, d.veb, d.mob, d.qurum, d.year, d.pdf]);
+  }
+  writeExcel([
+    {name:'Xidmetler', data:svcRows},
+    {name:'Melumatlar', data:dataRows}
+  ], 'mygov_full_export.xlsx');
+}
+
+function writeExcel(sheets, filename) {
+  var wb = XLSX.utils.book_new();
+  for (var i = 0; i < sheets.length; i++) {
+    var ws = XLSX.utils.aoa_to_sheet(sheets[i].data);
+    var wscols = [];
+    for (var j = 0; j < sheets[i].data[0].length; j++) {
+      var maxLen = 10;
+      for (var r = 0; r < Math.min(sheets[i].data.length, 50); r++) {
+        var val = sheets[i].data[r][j] ? String(sheets[i].data[r][j]) : '';
+        if (val.length > maxLen) maxLen = val.length;
+      }
+      wscols.push({wch: Math.min(maxLen + 2, 60)});
+    }
+    ws['!cols'] = wscols;
+    XLSX.utils.book_append_sheet(wb, ws, sheets[i].name);
+  }
+  XLSX.writeFile(wb, filename);
+}
+
 loadAll();
 
 </script>
