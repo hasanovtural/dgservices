@@ -195,7 +195,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .errttl{font-size:15px;font-weight:700;color:#be123c;margin-bottom:6px}
 .errmsg{font-size:13px;color:#64748b;line-height:1.6}
 .errbt{margin-top:14px;padding:8px 20px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.exp-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:8px 24px}
+.exp-bar{background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:10px 24px}
 .exp-bar-in{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .exp-lbl{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
 .exp-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1.5px solid #e2e8f0;background:#f8fafc;color:#334155;cursor:pointer;transition:all .15s;font-family:inherit}
@@ -278,7 +278,7 @@ var URL_SVC  = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?
 var URL_DATA = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:json&gid=1088801224";
 
 var S = [], D = [], ST = {};
-var F  = {f:0, p:0, o:-1};
+var F  = {f:0, p:0, o:[]};
 var DF = {v:-1, m:-1};
 var VC = [], MC = [];
 
@@ -373,7 +373,11 @@ function parseServices(gviz) {
     var form  = r.c[4] && r.c[4].v ? String(r.c[4].v).trim() : '';
     var plat  = r.c[5] && r.c[5].v ? String(r.c[5].v).trim() : '';
     var yrC = r.c[6]; var year = yrC && yrC.v ? (yrC.f || String(Math.round(yrC.v))) : '';
+    // Skip header-like rows
     if (!qurum || !name) continue;
+    if (name === 'Xidmetin adi' || name === 'Xidmətin adı' || name === 'Xidmətin adı ') continue;
+    // Skip rows where form is not API or iframe (likely header/empty rows)
+    if (form && form !== 'API' && form.indexOf('frame') === -1 && form.indexOf('İframe') === -1) continue;
     if (!orgs[qurum]) { orgs[qurum] = {name:qurum, icon:getIcon(qurum), svcs:[]}; order.push(qurum); }
     orgs[qurum].svcs.push({name:name, form:form, platform:plat, year:year});
   }
@@ -536,7 +540,21 @@ function showD() {
 
 function setF(v,el) { F.f=v; mark(el); rS(); }
 function setP(v,el) { F.p=v; mark(el); rS(); }
-function setO(v,el) { F.o=v; mark(el); rS(); }
+function setO(v, el) {
+  if (v === -1) {
+    F.o = [];
+    var chips = el.parentElement.querySelectorAll('.ch');
+    for (var i=0; i<chips.length; i++) chips[i].classList.remove('on');
+    el.classList.add('on');
+  } else {
+    el.parentElement.querySelector('.ch').classList.remove('on');
+    var idx = F.o.indexOf(v);
+    if (idx === -1) { F.o.push(v); el.classList.add('on'); }
+    else { F.o.splice(idx,1); el.classList.remove('on'); }
+    if (F.o.length === 0) el.parentElement.querySelector('.ch').classList.add('on');
+  }
+  rS();
+}
 function setV(v,el) { DF.v=v; mark(el); rD(); }
 function setM(v,el) { DF.m=v; mark(el); rD(); }
 
@@ -552,7 +570,7 @@ function rS() {
   var html = '', n = 0;
   for (var i=0; i<S.length; i++) {
     var o = S[i];
-    if (F.o !== -1 && F.o !== i) continue;
+    if (F.o.length > 0 && F.o.indexOf(i) === -1) continue;
     var fs = [];
     for (var j=0; j<o.svcs.length; j++) {
       var s = o.svcs[j];
