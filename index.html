@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mygov | Rəqəmsal Xidmət və Məlumatlar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--surface3:#e8edf5;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --tx:#0f172a;--tx2:#334155;--tx3:#64748b;--tx4:#94a3b8;
+  --blue:#2563eb;--blue-s:#dbeafe;--blue-d:#1d4ed8;
+  --indigo:#4f46e5;--violet:#7c3aed;--violet-s:#ede9fe;
+  --green:#059669;--green-s:#d1fae5;
+  --amber:#b45309;--amber-s:#fef3c7;
+  --rose:#be123c;--rose-s:#ffe4e6;
+  --cyan:#0e7490;--cyan-s:#cffafe;
+  --orange:#c2410c;--orange-s:#ffedd5;
+  --pink:#9d174d;--pink-s:#fce7f3;
+  --teal:#0f766e;--teal-s:#ccfbf1;
+  --r:8px;--r2:12px;
+  --sh-s:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-m:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
+::selection{background:var(--blue);color:#fff}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--border);padding:0 24px}
+.hdr-in{max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.logo-mark span{font-size:17px;font-weight:900;color:#fff;letter-spacing:-1px;font-family:'Inter',sans-serif}
+.logo-text{display:flex;flex-direction:column;gap:1px}
+.logo-name{font-size:17px;font-weight:800;letter-spacing:-.6px;line-height:1}
+.logo-name .my{color:var(--tx)}
+.logo-name .gov{background:linear-gradient(90deg,var(--blue),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-tagline{font-size:10px;font-weight:600;color:var(--tx3);letter-spacing:.5px;text-transform:uppercase}
+.hdr-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
+.hdr-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(5,150,105,.2)}
+
+.stats-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto}
+.stats-inner{max-width:1440px;margin:0 auto;display:flex;padding:10px 0}
+.st{flex:0 0 auto;padding:10px 20px 10px 14px;display:flex;align-items:center;gap:12px;border-right:1px solid var(--border);cursor:default;transition:background .15s}
+.st:last-child{border-right:none}
+.st:hover{background:var(--surface2)}
+.st.clickable{cursor:pointer}
+.st.clickable:hover .st-num{color:var(--blue-d)}
+.st-icon{width:34px;height:34px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.st-num{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;line-height:1;transition:color .15s}
+.st-lbl{font-size:11px;font-weight:500;color:var(--tx3);white-space:nowrap;margin-top:2px}
+
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px}
+.tabs-in{max-width:1440px;margin:0 auto;display:flex}
+.tb{padding:14px 18px;font-size:13.5px;font-weight:600;color:var(--tx3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;font-family:inherit;display:flex;align-items:center;gap:8px}
+.tb:hover{color:var(--tx2)}
+.tb.on{color:var(--blue);border-bottom-color:var(--blue)}
+.tb-cnt{font-size:11px;font-weight:700;background:var(--surface2);color:var(--tx3);padding:1px 8px;border-radius:20px;font-family:'JetBrains Mono',monospace;transition:all .15s}
+.tb.on .tb-cnt{background:var(--blue);color:#fff}
+
+.mn{max-width:1440px;margin:0 auto;padding:20px 24px}
+.pn{display:none}.pn.on{display:block}
+
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.searchbox{flex:1;min-width:240px;max-width:420px;display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);padding:10px 14px;transition:all .15s;box-shadow:var(--sh-s)}
+.searchbox:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.searchbox input{flex:1;background:none;border:none;outline:none;color:var(--tx);font-size:13.5px;font-family:inherit}
+.searchbox input::placeholder{color:var(--tx4)}
+.si{width:16px;height:16px;flex-shrink:0;color:var(--tx4)}
+
+.fr{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;align-items:center}
+.fl{font-size:11px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.6px;margin-right:2px;white-space:nowrap}
+.ch{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--tx2);cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none}
+.ch:hover{border-color:var(--border2);background:var(--surface2)}
+.ch.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.2)}
+.cg.on{background:var(--green);border-color:var(--green)}
+.ca.on{background:var(--amber);border-color:var(--amber)}
+.cv.on{background:var(--violet);border-color:var(--violet)}
+.cp.on{background:var(--pink);border-color:var(--pink)}
+
+.org-wrap{max-height:120px;overflow-y:auto;padding:2px 0;margin-bottom:10px}
+
+.org-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:10px}
+@media(max-width:700px){.org-grid{grid-template-columns:1fr}}
+
+.oc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh-s);transition:all .2s;animation:up .3s ease both}
+.oc:hover{border-color:var(--border2);box-shadow:var(--sh-m);transform:translateY(-1px)}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.oh{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .12s}
+.oh:hover{background:var(--surface2)}
+.oi{width:34px;height:34px;border-radius:var(--r);flex-shrink:0;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:18px}
+.on2{flex:1;font-weight:600;font-size:13px;color:var(--tx);line-height:1.3}
+.ocnt{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--tx3);background:var(--surface2);padding:2px 8px;border-radius:20px;flex-shrink:0}
+.oar{color:var(--tx4);font-size:10px;transition:transform .3s;flex-shrink:0}
+.oc.open .oar{transform:rotate(180deg)}
+.ob{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.oc.open .ob{max-height:6000px}
+.obi{border-top:1px solid var(--border)}
+
+.sv{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;padding:8px 14px;border-bottom:1px solid rgba(0,0,0,.04);transition:background .1s;font-size:13px}
+.sv:last-child{border-bottom:none}
+.sv:hover{background:var(--surface2)}
+.sn{flex:1;min-width:160px;color:var(--tx);line-height:1.4;padding-top:1px}
+.sy{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx4);padding-top:3px;flex-shrink:0}
+
+.tg{display:inline-flex;align-items:center;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.ta{background:var(--green-s);color:var(--green)}
+.ti{background:var(--amber-s);color:var(--amber)}
+.tw{background:var(--violet-s);color:var(--violet)}
+.tm{background:var(--pink-s);color:var(--pink)}
+.tpdf{background:var(--rose-s);color:var(--rose)}
+.tdoc{background:var(--teal-s);color:var(--teal)}
+.tpnd{background:var(--orange-s);color:var(--orange)}
+.tnone{background:var(--surface2);color:var(--tx4)}
+
+.dc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:800px){.dc{grid-template-columns:1fr}}
+.dch{font-size:13px;font-weight:700;color:var(--tx2);display:flex;align-items:center;gap:8px;padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid var(--border)}
+.dch-cnt{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;background:var(--surface2);color:var(--tx3);padding:1px 8px;border-radius:12px;margin-left:auto}
+.dg{margin-bottom:10px;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface);overflow:hidden;box-shadow:var(--sh-s)}
+.dgt{font-size:12px;font-weight:700;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.dgtv{background:linear-gradient(90deg,rgba(79,70,229,.06),transparent);color:var(--indigo)}
+.dgtm{background:linear-gradient(90deg,rgba(157,23,77,.06),transparent);color:var(--pink)}
+.dgcnt{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--tx3);background:var(--surface2);padding:1px 7px;border-radius:10px}
+.di{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 14px;border-bottom:1px solid rgba(0,0,0,.04);font-size:12.5px;transition:background .1s}
+.di:last-child{border-bottom:none}
+.di:hover{background:var(--surface2)}
+.din{flex:1;min-width:140px;color:var(--tx)}
+.diq{font-size:11px;color:var(--tx3);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.diy{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx4);white-space:nowrap}
+
+.fls{margin-bottom:20px}
+.flh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px}
+.flt{font-size:15px;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:10px}
+.flt .b96{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;padding:3px 11px;border-radius:20px;box-shadow:0 2px 8px rgba(79,70,229,.3)}
+.flsrch{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:8px 12px;min-width:220px;transition:all .15s;box-shadow:var(--sh-s)}
+.flsrch:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.flsrch input{background:none;border:none;outline:none;font-family:inherit;font-size:13px;color:var(--tx);width:100%}
+.flsrch input::placeholder{color:var(--tx4)}
+.flcnt{font-size:12px;color:var(--tx3);font-family:'JetBrains Mono',monospace;font-weight:500;margin-bottom:6px}
+
+.flw{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh-s)}
+.fls2{max-height:540px;overflow-y:auto}
+.fltbl{width:100%;border-collapse:collapse;font-size:13px}
+.fltbl thead th{background:var(--surface2);color:var(--tx2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:10px 14px;text-align:left;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:5;white-space:nowrap}
+.fltbl thead th:first-child{width:44px;text-align:center}
+.fltbl tbody tr{border-bottom:1px solid rgba(0,0,0,.045);transition:background .1s}
+.fltbl tbody tr:last-child{border-bottom:none}
+.fltbl tbody tr:hover{background:rgba(37,99,235,.04)}
+.fltbl tbody tr:nth-child(even){background:rgba(0,0,0,.016)}
+.fltbl tbody tr:nth-child(even):hover{background:rgba(37,99,235,.04)}
+.fltbl td{padding:9px 14px;vertical-align:middle}
+.flnum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx4);text-align:center}
+.flname{font-weight:500;color:var(--tx);line-height:1.4}
+.flvtag,.flmtag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px;white-space:nowrap;display:inline-block}
+.florg{font-size:11.5px;color:var(--tx3);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flyr{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx4);white-space:nowrap}
+
+.empty{text-align:center;padding:40px 20px;color:var(--tx3);font-size:14px}
+.empty-ico{font-size:28px;display:block;margin-bottom:8px}
+
+@media(max-width:768px){.hdr{padding:0 14px}.mn{padding:14px}.stats-bar,.tabs{padding:0 14px}.st{padding:8px 12px}.st-num{font-size:17px}.florg,.flyr{display:none}.flsrch{min-width:160px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="#">
+      <div class="logo-mark"><span>mg</span></div>
+      <div class="logo-text">
+        <div class="logo-name"><span class="my">my</span><span class="gov">gov</span></div>
+        <div class="logo-tagline">Rəqəmsal Xidmət və Məlumatlar</div>
+      </div>
+    </a>
+    <div class="hdr-badge">05.04.2026</div>
+  </div>
+</header>
+
+<div class="stats-bar"><div class="stats-inner" id="sR"></div></div>
+
+<div class="tabs">
+  <div class="tabs-in">
+    <button class="tb on" onclick="gt('s')">&#9881;&#65039; Xidm&#601;tl&#601;r <span class="tb-cnt" id="tc-s">412</span></button>
+    <button class="tb" onclick="gt('d')">&#128196; M&#601;lumat v&#601; S&#601;n&#601;dl&#601;r <span class="tb-cnt" id="tc-d">96</span></button>
+  </div>
+</div>
+
+<main class="mn">
+  <div class="pn on" id="ps">
+    <div class="toolbar">
+      <div class="searchbox">
+        <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="sQ" placeholder="Qurum v&#601;ya xidm&#601;t axtar..." oninput="rS()">
+      </div>
+    </div>
+    <div class="fr" id="fF">
+      <span class="fl">&#304;nteqrasiya:</span>
+      <span class="ch on" onclick="sf('f','all',this)">Ham&#305;s&#305;</span>
+      <span class="ch cg" onclick="sf('f','API',this)">API</span>
+      <span class="ch ca" onclick="sf('f','&#304;frame',this)">&#304;frame</span>
+    </div>
+    <div class="fr" id="fP">
+      <span class="fl">Platforma:</span>
+      <span class="ch on" onclick="sf('p','all',this)">Ham&#305;s&#305;</span>
+      <span class="ch cp" onclick="sf('p','VEB/Mobile',this)">&#128241; VEB+Mobile</span>
+      <span class="ch cv" onclick="sf('p','VEB',this)">&#128421;&#65039; Yaln&#305;z VEB</span>
+    </div>
+    <div class="fr org-wrap" id="fO"></div>
+    <div class="org-grid" id="sL"></div>
+  </div>
+
+  <div class="pn" id="pd">
+    <div class="toolbar">
+      <div class="searchbox">
+        <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="dQ" placeholder="M&#601;lumat, qurum v&#601;ya kateqoriya axtar..." oninput="rD()">
+      </div>
+    </div>
+    <div class="fr" id="fV" style="max-height:110px;overflow-y:auto"></div>
+    <div class="fr" id="fM" style="max-height:110px;overflow-y:auto"></div>
+
+    <div class="fls">
+      <div class="flh">
+        <div class="flt">B&#252;t&#252;n m&#601;lumatlar <span class="b96">96</span></div>
+        <div class="flsrch">
+          <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="flQ" placeholder="Axtar..." oninput="filterFL()">
+        </div>
+      </div>
+      <div class="flcnt" id="flCnt">96 m&#601;lumat g&#246;st&#601;rilir</div>
+      <div class="flw"><div class="fls2">
+        <table class="fltbl">
+          <thead><tr>
+            <th>#</th>
+            <th>M&#601;lumat ad&#305;</th>
+            <th>&#128421;&#65039; VEB Kateqoriya</th>
+            <th>&#128241; Mobil Kateqoriya</th>
+            <th>Qurum</th><th>&#304;l</th><th>S&#601;n&#601;d</th>
+          </tr></thead>
+          <tbody id="flBody"></tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <div class="dc" id="dC"></div>
+  </div>
+</main>
+
+<script>
+const S=[{"name": "Əmək və Əhalinin Sosial Müdafiəsi Nazirliyi", "icon": "🏛️", "svcs": [{"name": "Pensiya kalkulyatoru", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Sığortaedənin uçot nömrəsinin öyrənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibbi-Sosial Ekspert Komissiyaları tərəfindən keçirilmiş müayinə barədə məlumatın veril...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmək müqaviləsi bildirişlərinin qeydiyyata alınması və bu barədə işəgötürənə məlumatın ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hamiləliyə və doğuma görə müavinətlə bağlı haqq-hesab cədvəlinin təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ünvanlı sosial yardımla bağlı müraciətin edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dəfn üçün müavinətin ödənilməsi ilə bağlı müraciətin və sənədlərin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sığortaolunanın onlayn uçota alınması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Uşağın üç yaş tamam olanadək ona qulluq etməyə görə müavinətlə bağlı haqq-hesab cədvəli...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Uşağın anadan olmasına görə müavinətlə bağlı haqq-hesab cədvəlinin təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İstehsalatda baş verən bədbəxt hadisə barədə aidiyyəti dövlət strukturuna məlumatların ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sığortaolunanın ölümünə dair məlumatın onlayn qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Məcburi dövlət sosial sığortası üzrə hesabatların təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmək müqaviləsi bildirişləri barədə məlumatların işçilər tərəfindən əldə edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibbi-Sosial Ekspert Komissiyasında sonuncu müayinəyə dair məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmək qabiliyyətinin müvəqqəti itirilməsinə görə müavinətlə bağlı haqq-hesab cədvəlinin ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmək müqaviləsinin imzalanması", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "İş yerinə dair arayışın alınması", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Fərdi şəxsi hesab haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Məşğulluq haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "İş yerinə dair arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Özünüməşğulluq proqramı haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Pensiya təyinatı haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Sosial sığorta ödənişləri haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Ünvanlı dövlət sosial yardım haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Ünvanlı dövlət sosial yardım ödənişləri haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Sosial müavinət və təqaüd haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Əlillik haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "SİMU arayışı", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Əlilliyi olan şəxslərə qulluq haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "İstehsalat zədəsi haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Reabilitasiya kartından çıxarış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Peşə hazırlığı haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Tibbi arayış", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Əməkhaqqı hesablanması", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Evdə səyyar sosial xidmət", "form": "API", "platform": "VEB/Mobile", "year": "2026"}]}, {"name": "Rəqəmsal İnkişaf və Nəqliyyat Nazirliyi", "icon": "🚗", "svcs": [{"name": "İşğaldan azad edilmiş ərazilərə səfər üçün icazə", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Liman olmayan dəniz nəqliyyatı obyektlərinin \"Dəniz əməliyyatları bazasının reyestri\"nd...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fərdi məlumatların informasiya ehtiyatlarının formalaşdırılması və informasiya sistemlə...", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "Mobil cihazların qeydiyyatdan keçirilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Mobil cihazların qeydiyyat tarifləri", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Mobil cihazların IMEI kodunun yoxlanılması", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Daşınmış nömrələr barədə məlumat", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Telefon nömrəsi üzrə axtarış", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Əvvəlki aylar üzrə danışıq borcu", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Cari ay danışıqları üzrə məlumat", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Poçt göndərişlərinin izlənilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Poçt ünvanları - interaktiv xəritə", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Küçə adı və poçt indeksi üzrə axtarış", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Elektrik doldurma məntəqələri", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Elektron sifarişlər barədə məlumat", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Dənizçilərə xüsusi hazırlıq şəhadətnamələrinin verilməsi üçün müraciətin və sənədlərin ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan Respublikasının Dövlət Gəmi Reyestrində qeydiyyatda olan gəminin qeydiyyatda...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vətəndaşlar üçün elektron imza sertifikatları sifarişi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telefonun servislərə qoşulması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telefon üzrə ətraflı məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Şəhər və rayon danışıqlarının statistikası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Radioelektron vasitələrə verilən icazələr", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dənizçilik şirkətinin Beynəlxalq Məcəllənin tələblərinə uyğun olması haqqında şəhadətna...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəminin əmniyyətli idarəetmə şəhadətnaməsinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "AzDataCom internet xidmətinə qoşulma üçün sifariş", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Klassifikator üzrə idarələrin axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Radioelektron vasitələrinin qeydiyyatı və icazə vərəqəsinin verilməsi", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "Gəmi tarixinin Fasiləsiz Qeydləri sənədinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan Respublikasının Dövlət Gəmi Reyestrində qeydiyyatda olan gəmiyə çıxarışın ve...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Limanın Beynəlxalq Məcəllənin tələblərinə uyğun olması haqqında şəhadətnamənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Mülki dövriyyəsi məhdudlaşdırılmış əşyaların dövriyyəsi üçün icazə", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Berbout-çarter Reyestrində qeydiyyatda olan gəminin qeydiyyatdan çıxarılması arayışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Minimum heyət tərkibi haqqında şəhadətnamənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "ADSL internet xidmətinə qoşulma", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Rabitə və kommunal xidmət haqlarının internet vasitəsilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yeni internet və telefon xəttinin çəkilməsi", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "CDMA şəbəkəsinə qoşulma", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Radiotezlik spektrindən istifadəyə görə ödənişlərin hesablanması kalkulyatoru", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telefon nömrəsinin dəyişdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dənizçinin qeyd kitabçasının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəminin Beynəlxalq Məcəllənin tələblərinə uyğun olması şəhadətnaməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telekommunikasiya vasitələri və qurğularına uyğunluq sertifikatının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sertifikatın tanınması haqqında təsdiqnamənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan Respublikasının Dövlət bayrağı altında üzmək hüququ haqqında şəhadətnamənin ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telefonun təhvil verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Berbout-çarter Reyestrində qeydiyyatda olan gəmiyə çıxarışın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telefonun addan ada keçirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Nömrə resurslarının ayrılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İnternet telekommunikasiya xidməti göstərən operatorların uçotu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Bunker yanacağı ilə çirklənmə üçün sığorta sertifikatının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Bəzi fəaliyyət növlərinə lisenziya verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dənizçinin şəxsiyyət sənədinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəmiyə mülkiyyət hüququ haqqında şəhadətnamənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Xarici dövri mətbu nəşrlərin Azərbaycanda yayılmasına razılıq", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Neftlə çirklənmədən yaranan zərərə görə maliyyə təminatı şəhadətnaməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron imza ilə imzalanmış sənədlərin yoxlanılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Şəhərlərarası danışıqlar üzrə qəbzlər", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Telefon ödənişlərinin siyahısı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Radioelektron vasitələrin möhürlənməsi", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "Dənizçilərə sertifikatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Radiomaneələrlə bağlı müraciət", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "İstifadəçilərin internet/mobil operator şikayətlərini onlayn etməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İxrac nəzarətinə düşən mallar üzrə icazə", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İdarələr üzrə ətraflı məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dəniz nəqliyyatı sahəsində fəaliyyət göstərən təlim mərkəzlərinə şəhadətnamənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Limanların Dövlət Reyestrində qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəmi agenti xidmətlərinin göstərilməsi üçün sertifikat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Cospas-Sarsat Qəza Radiomayaklarının Sisteminin təsdiqnamələri", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəmi Həyəcan Mühafizə Sisteminin təsdiqnamələri", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəmilərin Uzaq Məsafədən Tanınma və İzlənilməsinin təsdiqnamələri", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İnmarsat Yerüstü Peyk Stansiyalarının təsdiqnamələri", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yeni internet qoşuntusu", "form": "İframe", "platform": "VEB", "year": "2025"}, {"name": "Dəniz Mobil İdentifikasiya Xidməti nömrəsinin qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Mərkəzi Seçki Komissiyası", "icon": "🗳️", "svcs": [{"name": "Seçici ünvanına görə dairə və məntəqənin axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ad, soyad və ata adı üzrə dairə və məntəqələrin axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Seçici siyahısı üçün məlumatların daxil edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dairə və məntəqə ünvanlarının axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Onlayn müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dairə və məntəqələrin xəritə üzrə axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Dövlət Gömrük Komitəsi", "icon": "🛃", "svcs": [{"name": "Gömrük əməliyyatları ilə bağlı ödəniləcək gömrük ödənişlərinin həyata keçirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İdxal-ixrac vergilərindən azadolma haqqında sertifikat almaq üçün müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron Gömrük Bəyannaməsi haqqında məlumatların əldə edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Mallar haqqında gömrük sərhəd buraxılış məntəqələrində qeydə alınan məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Nəqliyyatın idxalı üçün gömrük rüsumların hesablanması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sərnişin Bəyannaməsinin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Xarici iqtisadi fəaliyyət iştirakçılarına statistik məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət Gömrük Komitəsinə daxil olan sorğuların onlayn izlənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Rəsmiləşdirilmə üçün tələb olunan sənədlərin surətləri", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Malların gömrük rəsmiləşdirilməsi üzrə elektron gömrük bəyannaməsinin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Daxili İşlər Nazirliyi", "icon": "🛡️", "svcs": [{"name": "FİN-ə görə fərdi məlumatların axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Rüsum və cərimələrin ödənişi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Məhkumluq haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2024"}]}, {"name": "Elm və Təhsil Nazirliyi", "icon": "🎓", "svcs": [{"name": "Ümumtəhsil məktəbləri şagirdlərinin təhsil aldıqları yer haqqında elektron arayış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Xarici dövlətlərin ali təhsil sahəsində ixtisaslarının tanınması (nostrifikasiyası)", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Təhsil sənədlərinin həqiqiliyinin onlayn yoxlanılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Peşə təhsili müəssisələrinə qəbul", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Ədliyyə Nazirliyi", "icon": "⚖️", "svcs": [{"name": "Doğum şəhadətnaməsinə müraciət", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Subaylıq haqqında arayış", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Nikahın qeydiyyata alınması üçün ərizə", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Qurumlarda təmsilçilik etibarnaməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Ölüm şəhadətnaməsinə müraciət", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Nəqliyyat vasitəsindən istifadə üçün etibarnamə", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Nəqliyyata sərəncam etibarnaməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Etibarnaməyə xitam ərizəsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Vətəndaşlıq vəziyyəti aktlarının dövlət qeydiyyatına dair təkrar şəhadətnamələrin veril...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ölüm haqqında aktın alınması üçün elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Soyadın, adın və ata adının dəyişdirilməsi üçün elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Notariat kontorları haqqında məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qeydiyyat orqanları haqqında məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Notariat hərəkətləri ilə əlaqədar ödənişlərin internet vasitəsilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ədliyyə orqanları və notariusların qəbuluna yazılış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Övladlığa götürmək üçün elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan adları barədə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Nikahın pozulması üçün elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ailə üzvləri haqqında arayış", "form": "API", "platform": "VEB", "year": "2025"}, {"name": "Mətbu nəşrlərin uçotu üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vərəsəlik işlərinin açılıb-açılmaması barədə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ədliyyə Nazirliyinə elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İcra qurumları haqqında məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Borcun internet vasitəsilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Atalığı müəyyən etmək üçün elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət notariat arxivindən notariat hərəkətləri barədə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qeyri-kommersiya hüquqi şəxsin ləğv edilməsi barədə məlumatın dərc olunması", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Səhiyyə Nazirliyi", "icon": "🏥", "svcs": [{"name": "İonlaşdırıcı şüa mənbələri ilə işlərə icazə verən sanitar-epidemioloji rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Rentgen kabinetinin istismarına icazə verən sanitariya-epidemioloji rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Radioaktiv maddə və materialların daşınması üsullarının sanitariya qaydalarına uyğunluğ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibb işçilərinin sertifikasiya imtahanına buraxılışın əldə edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Xarici ölkələrdə ali təhsil almış tibb işçilərinin işə buraxılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daxili istehsal məhsullarına gigiyenik sertifikatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Doğum haqqında tibbi şəhadətnamə elektron registrindən məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət tərəfindən dərman vasitələri ilə təmin olunan xəstələrə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibb işçilərinin sertifikasiya şəhadətnaməsinin əldə edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəmi sanitariya şəhadətnaməsinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Beş ildən çox işləməyən tibb mütəxəssislərinin hazırlığa göndərilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibb müəssisələri barədə məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yeyinti məhsulları üzərindəki adların reklam məlumatlarının etiketdə yerləşdirilməsinə ...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qida məhsullarının daşınmasına icazə verən sanitariya pasportunun verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Torpaq sahəsinin sanitariya normalarına uyğunluğuna dair rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dərman vasitələrinin dövlət qeydiyyatı şəhadətnaməsinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibb işçilərinin sertifikasiyadan keçməsi üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sertifikasiya şəhadətnaməsinin doğruluğunun yoxlanması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dərman vasitələrinin idxalına icazə verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tibb işçilərinin ixtisas dərəcələrinin artırılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Özəl tibb müəssisəsində narkotik maddələrin istifadəsinə razılıq", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tikinti layihələrinə sanitariya-epidemioloji rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Gəminin sanitariya nəzarətindən azad edilməsi haqqında şəhadətnamə", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Mehmanxana tipli obyektlər üçün sanitariya pasportunun verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Dövlət Statistika Komitəsi", "icon": "📊", "svcs": [{"name": "Sahibkarlıq subyektinə ölçüsünə görə aid olduğu kateqoriyaya dair elektron arayışın ver...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Statistik məlumatların buraxılış təqviminin təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Statistik məlumatların verilməsi qaydalarının pozulmasına görə inzibati cərimələrin ödə...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Statistik nəşrlərin onlayn satışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Rəsmi statistik hesabatların təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Statistik məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Azərbaycan Respublikasının İqtisadiyyat Nazirliyi", "icon": "💰", "svcs": [{"name": "Vergi kalkulyatoru", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Başa çatdırılmamış tikililər kimi özəlləşdirilən obyektlərin hərracda satışına dair sif...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hüquqi şəxsin filialının fəaliyyətinin onlayn dayandırılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kommersiya hüquqi şəxsin ləğv edilməsi barədə məlumatın dərc olunması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Orta və iri dövlət müəssisələrinin səhmlərinin pul hərraclarında satışına dair sifarişlər", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin təsərrüfat subyektinin uçot məlumatlarının onlayn dəyişdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hüquqi şəxsin filialının fəaliyyətinin onlayn bərpası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi uçotuna alınmış vergi ödəyiciləri barədə məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin filialının onlayn qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlaka dair çıxarışların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "POS-terminalın onlayn qeydiyyatdan çıxarılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vahid depozit hesabı vasitəsilə ƏDV üzrə elektron ödənişlər", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakın lizinqinin dövlət qeydiyyatının ləğvi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi orqanı əməkdaşlarının korrupsiya halları barədə məlumatın onlayn verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin təsərrüfat subyektinin onlayn qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət əmlakının qorunub saxlanılması haqqında illik xüsusi hesabat forması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yerli icra hakimiyyəti orqanlarının qeyri-yaşayış sahələrinin hərracda satışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin filialının onlayn qeydiyyatdan çıxarılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi orqanı əməkdaşlarının qeyri-etik davranışı barədə məlumatın onlayn verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kiçik müəssisələrin hərracda satışına dair sifarişlər", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Servitutun dövlət qeydiyyatının ləğvi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İstehsal fəaliyyəti ilə məşğul olan vergi ödəyiciləri barədə məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakla bağlı uzufruktun dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Servitutun dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hüquqi şəxsin fəaliyyətinin onlayn dayandırılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kommersiya qurumlarının dövlət reyestri məlumatlarının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fiziki şəxsin uçot məlumatlarının onlayn dəyişdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin təsərrüfat subyektinin fəaliyyətinin onlayn dayandırılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fiziki şəxslərin vergi uçotuna alınması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət rüsumları və digər ödənişləri onlayn ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Nəzarət-kassa aparatının onlayn qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hüquqi şəxsin uçot məlumatlarının onlayn dəyişdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sadələşdirilmiş vergi bəyannaməsinin onlayn təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin təsərrüfat subyektinin onlayn qeydiyyatdan çıxarılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kommersiya hüquqi şəxslərə münasibətdə qrant müqavilələrinin qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi borcu barədə arayışın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fiziki şəxsin fəaliyyətinin onlayn dayandırılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fiziki və hüquqi şəxslərlə sual-cavab", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi partnyorluğu Sazişinin bağlanılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kiçik dövlət müəssisələrinin əmək kollektivi üzvlərinə güzəştli satışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İnzibati cərimələrin internet vasitəsilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "AzPOS stansiyalara qoşulması üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Üzləşmə aktlarının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müsadirə edilmiş əmlakların satışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "ƏDV məqsədləri üçün onlayn qeydiyyat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "POS-terminalın onlayn qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Məhv olmuş daşınmaz əmlakın dövlət qeydiyyatının ləğvi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kommersiya hüquqi şəxsin adının unikallığının yoxlanılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fiziki şəxsin fəaliyyətinin onlayn bərpası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hüquqi şəxsin fəaliyyətinin onlayn bərpası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Hüquqi şəxsin filialının uçot məlumatlarının onlayn dəyişdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi borcu barədə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakın dövlət reyestrindən məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vətəndaşların vergi orqanlarında qəbula yazılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi və digər büdcə daxilolmalarının internet vasitəsilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Banklarda hesabların açılması üçün şəhadətnamə dublikatının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakın ipotekasının dövlət qeydiyyatının ləğvi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "ƏDV məqsədləri üçün qeydiyyatın onlayn ləğv edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müraciətlərin onlayn izlənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakla bağlı uzufruktun dövlət qeydiyyatının ləğvi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "ƏDV ödəyiciləri barədə məlumatların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakın ipotekasının əlavə dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Torpaq sahəsi üzərində bələdiyyənin mülkiyyət hüquqlarının ilkin dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vergi ödəyicisinin təsərrüfat subyektinin fəaliyyətinin onlayn bərpası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlak obyektlərinə ünvanların verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Malın mənşə ölkəsini təsdiq edən sertifikatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Çoxmərtəbəli yaşayış binasında daşınmaz əmlakın mövcudluğu barədə məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Büdcə rekvizitləri barədə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron kredit və zəmanət informasiya sistemi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İpoteka predmeti olan daşınmaz əmlaka tutmanın yönəldilməsi haqqında bildirişin ləğvi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron vergi hesab fakturasının qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Satınalmalar üzrə məlumatların onlayn təqdim edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakın ipotekasının sonrakı əlavə dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlaka dair texniki sənədlərin tərtib edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Nəqliyyat vasitələrinin hərraclar vasitəsilə satışına aid müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlakın ipotekasının dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İpoteka predmeti olan daşınmaz əmlaka tutmanın yönəldilməsi haqqında bildirişin qeydə a...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət Vergi Xidmətinə müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Kommersiya hüquqi şəxslərin onlayn qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron bəyannamənin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Cari vergi ödəmələrinin hesablanması haqqında arayış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Daşınmaz əmlak üzərində lizinq hüququnun dövlət qeydiyyatına alınması", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Milli Arxiv İdarəsi", "icon": "📚", "svcs": [{"name": "Arxiv arayışlarının verilməsi üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elmi tədqiqat məqsədlərlə arxiv sənədlərindən istifadə üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron Xidmətlər Portalı", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Ekologiya və Təbii Sərvətlər Nazirliyi", "icon": "🌿", "svcs": [{"name": "Atmosfer havasına zərərli maddələrin atılmasına icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Meşə fondu torpaqlarından istifadə edilməsi üçün razılığın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Cərimə, ziyan və ödəmələrin internet vasitəsi ilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Milli parklara onlayn bilet satışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yerin təki sahəsinə faydalı qazıntıların çıxarılması üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müxtəliftəyinatlı xəritə və atlasların tərtibatı üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Mülki dövriyyəsi məhdudlaşdırılmış əşyaların dövriyyəsinə icazə verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İxrac nəzarətinə düşən mallar üzrə icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sənaye balıq ovu üçün balıqovlama biletlərinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ekologiya Nazirliyinin səlahiyyətlərinə aid malların ixracına rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "CİS üçün baza xəritələrinin tərtibi ilə əlaqədar müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət ekoloji ekspertizasının obyektləri barədə rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Meşə məhsulları və dərman bitkilərinin onlayn satışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Torpaqların kateqoriyalara aid edilməsinə dair rəyin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Tullantıların yerləşdirilməsi üçün torpaq sahələrinin ayrılmasına razılığın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Vəhşi heyvanların ovuna icazələrin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Geodeziya, qravimetriya, topoqrafiya işlərinin həyata keçirilməsi üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərə ov etmək üçün icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ətraf mühit və təbii sərvətlərlə bağlı məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Ekoloji və normativ sənədlərin razılaşdırılması", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Əqli Mülkiyyət Agentliyi", "icon": "💡", "svcs": [{"name": "Audiovizual əsərin nüsxələrinə nəzarət markasının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İnteqral sxem topologiyalarının dövlət qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müəlliflik hüququ obyektinin qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əlaqəli hüquqlar obyektinin qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sənaye Mülkiyyətinin Mühafizəsi Sahəsində Apellyasiya Şurası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müəlliflik hüququ ilə qorunan məlumat toplularının qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əqli Mülkiyyət Agentliyində qeydiyyatdan keçmiş əsərlər üzrə məlumatın verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İxtiraya patent verilməsi üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Xüsusi qorunma hüququ ilə qorunan məlumat toplularının qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmtəə nişanına dair hüquqların verilməsi barədə müqavilələrin qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmtəə nişanının dövlət reyestrində qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əmtəə nişanının reyestr məlumatlarından çıxarış verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Müdafiə Sənayesi Nazirliyi", "icon": "🔧", "svcs": [{"name": "İxrac nəzarətinə düşən mallar üzrə xüsusi icazənin verilməsi üçün müraciətin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Energetika Nazirliyi", "icon": "⚡", "svcs": [{"name": "Sənaye qaz qurğusunun istismarına icazə verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İxrac məqsədli neft-qaz fəaliyyəti üçün podratçılara xüsusi iqtisadi rejimin tətbiqi şə...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qazın istehsalına icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Neft və neft məhsullarının emalına icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İxrac nəzarətinə düşən malların ixracı üçün xüsusi icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Dövlət Miqrasiya Xidməti", "icon": "✈️", "svcs": [{"name": "Əcnəbilərin Azərbaycanda olduğu yer üzrə qeydiyyata alınması", "form": "API", "platform": "VEB", "year": "2025"}, {"name": "Dövlət rüsumu və cərimələrin ödənişi üzrə axtarış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İşəgötürən tərəfindən əcnəbi işçi qüvvəsinə tələbat haqqında proqnoz-məlumatların veril...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Miqrasiya orqanlarına qulluğa qəbulla bağlı müsabiqədə iştirak", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərə Azərbaycanda daimi yaşamaq üçün icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərin ölkəyə gəlməsinin müvəqqəti məhdudlaşdırılması barədə məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan Respublikası vətəndaşlığının bərpa edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Xarici dövlətin vətəndaşlığını qəbul etmiş Azərbaycan vətəndaşı tərəfindən məlumatın ve...", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərin olduğu yer üzrə qeydiyyat məlumatlarının yoxlanılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərə iş icazəsinin müddətinin uzadılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət Miqrasiya Xidmətinə müraciətlərin onlayn izlənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan Respublikası vətəndaşlığının əldə edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərə müvəqqəti yaşamaq üçün icazənin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət rüsumu və cərimələrin elektron ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərə iş icazəsinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Azərbaycan Respublikası vətəndaşlığından çıxması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əcnəbilərin Azərbaycanda müvəqqəti olma müddətinin uzadılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Şəxsin Azərbaycan Respublikasının vətəndaşlığına mənsubiyyətinin müəyyənləşdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Prezident yanında Vətəndaşlara Xidmət və Sosial İnnovasiyalar üzrə Dövlət Agentliyi", "icon": "🤝", "svcs": [{"name": "Giriş və ya tranzit vizası üçün onlayn müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "ASAN xidmət mərkəzlərində onlayn növbə", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Xarici İşlər Nazirliyi", "icon": "🌐", "svcs": [{"name": "Azərbaycanda xarici kütləvi informasiya vasitələri nümayəndələrinin akkreditəsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "icon": "🎖️", "svcs": [{"name": "İlkin hərbi qeydiyyat", "form": "API", "platform": "VEB/Mobile", "year": "2026"}]}, {"name": "Azərişıq ASC", "icon": "💡", "svcs": [{"name": "Əhali istehlakçısının ad dəyişdirilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Abonentin geniş tarixçəsinin verilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Smart kartların bərpası və yenisinin verilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Borcun araşdırılması barədə sənədin verilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Elektrik təchizatı sistemlərinin layihələndirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Məcburi köçkün qrupuna aid abonentlərdən müraciətlərin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sayğacın zədələnməsinin araşdırılması üçün müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Enerji haqlarının internet vasitəsi ilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Abonent kodunun AKTİV/PASİV edilməsi üçün müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İstehlakçının balansında olan elektrik şəbəkələrinə texniki xidmət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Çoxmənzilli binalarda yaşayış mənzillərinin qeydiyyata alınması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yük hesabatının hazırlanması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qeyri-əhali istehlakçısının ad dəyişdirilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qeyri-əhali qrupuna aid abonentlərə üzləşmə aktlarının verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Enerji təchizatı şəbəkəsinə qoşulma", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qeyri-yaşayış tikinti obyektlərinin istismara hazırlığı barədə rəy", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qüsurlu ödənişin bərpası", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Aktiv istehlakçının qeydiyyata alınması", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "İnsan Hüquqları üzrə Müvəkkil - Ombudsman", "icon": "👤", "svcs": [{"name": "Ombudsman aparatına elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Dövlət İmtahan Mərkəzi", "icon": "📝", "svcs": [{"name": "Vətəndaş haqqında Tələbə-məzun dövlət elektron məlumat sistemindən çıxarış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Namizədlərə imtahana buraxılış vərəqələrinin internet vasitəsilə verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət orqanlarında vakant vəzifələrin tutulması üçün ümumi müsahibədə iştirak qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət orqanlarında vakant vəzifələrin tutulması üçün daxili müsahibədə iştirak qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "DİM rəhbərliyinin qəbuluna onlayn yazılma", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Namizədlərin ərizələrinin onlayn qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sınaq imtahanına yazılış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət qulluğu vəzifələri üzrə test imtahanı sertifikatının verilməsi üçün qeydiyyat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İmtahan nəticələri haqqında SMS/internet məlumatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İnternetdə video mühazirələr", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müsahibədə iştirak üçün qeydiyyat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət qulluğuna qəbulla bağlı elektron sınaq imtahanına qeydiyyat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Bakalavrların ərizələrinin iş nömrələrinin axtarışı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Namizədlərə cavab kartlarının qrafik təsvirlərinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Namizədlərin elektron ixtisas seçimi ərizələrinin qəbulu", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Test imtahanında iştirak üçün qeydiyyat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Şagirdlərin özləri haqqında məlumatları yoxlaması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Müsabiqə və müsahibə nəticələri barədə məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət qulluqçularının Reyestrindən məlumat", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Dövlət qulluğu stajının hesablanması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "DİM nəşrlərinin onlayn satışı", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Mənzil İnşaatı Dövlət Agentliyi", "icon": "🏗️", "svcs": [{"name": "Güzəştli mənzil sistemi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Azərbaycan Respublikasının İpoteka və Kredit Zəmanət Fondu", "icon": "🏦", "svcs": [{"name": "Yaşayış sahələrinin satmaq öhdəliyi ilə kirayəyə verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Sahibkarlıq kreditlərinə zəmanətlərin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "İpoteka kreditinin verilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Qida Təhlükəsizliyi Agentliyi", "icon": "🍽️", "svcs": [{"name": "Qida sahəsində fəaliyyət göstərən sahibkarlıq subyektlərinin qeydiyyatı", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Qida sahəsində fəaliyyət göstərən sahibkarlıq subyektlərinin dövlət reyestri haqqında m...", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Dövlət Mülki Aviasiya Agentliyi", "icon": "✈️", "svcs": [{"name": "PUA-ların dövriyyəsinə xüsusi icazə müraciətlərinin göndərilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "PUA-ların qeydiyyatı üzrə müraciətlərin göndərilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Rəqəmsal İcra Hakimiyyəti", "icon": "🏢", "svcs": [{"name": "Yaşayış sahəsinə ehtiyac olan vətəndaşların uçota alınması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Fiziki şəxs üzərində patronajın təyin edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yetkinlik yaşına çatmayanlar üzərində himayəçilik təyin edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yaşayış sahəsinə ehtiyacı olan əlilliyi olan şəxs vəfat etdiyi halda uçotun saxlanılması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "On dörd yaşı tamam olmamış şəxslər üzərində qəyyumluq təyin edilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yetkinlik yaşına çatmayan şəxsin əmlakı üzərində notarial hərəkətlərə razılıq", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "YİHO-da vətəndaş qəbulu", "form": "API", "platform": "VEB/Mobile", "year": "2024"}, {"name": "Təsərrüfat haqqında arayış", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "Ailə vəziyyəti haqqında arayış", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "Ailə tərkibi haqqında arayış", "form": "API", "platform": "VEB", "year": "2024"}, {"name": "Yaşayış yeri haqqında arayış", "form": "API", "platform": "VEB", "year": "2024"}]}, {"name": "Mərkəzi Bank", "icon": "🏦", "svcs": [{"name": "Elektron müraciət sistemi (Azərbaycan Mərkəzi Bankı)", "form": "İframe", "platform": "VEB", "year": "2024"}]}, {"name": "Azərbaycan Dövlət Su Ehtiyyatları agentliyi", "icon": "💧", "svcs": [{"name": "Əhali istehlakçısının ad dəyişdirilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Borcun araşdırılması üzrə müraciət", "form": "API", "platform": "VEB/Mobile", "year": "2025"}, {"name": "Su nümunələrinin yoxlanılmasına dair müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su borcunun internet vasitəsilə öyrənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su borcunun olmaması haqqında arayış", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su təchizatı sistemində baş vermiş qəza ilə bağlı müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su borcunun internet vasitəsilə ödənilməsi", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su sayğaclarının təmiri müraciəti", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Elektron müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Yeni istehlakçının qeydiyyata alınması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su sayğaclarının plomblanmasına dair müraciət", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Abonentə aid məlumatların verilməsi xidməti", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Su təchizatı sisteminə qoşulması üçün texniki şərtlərin alınması", "form": "İframe", "platform": "VEB", "year": "2024"}, {"name": "Əhali qrupu üzrə sayğac göstəricilərinin təqdim edilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}]}, {"name": "Azəriqaz İB", "icon": "🔥", "svcs": [{"name": "Borc arayışının verilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2026"}, {"name": "Texniki Şərtin Verilməsi", "form": "API", "platform": "VEB", "year": "2026"}, {"name": "Əhali istehlakçısının ad dəyişdirilməsi", "form": "API", "platform": "VEB/Mobile", "year": "2025"}]}, {"name": "Digər xidmətlər", "icon": "📦", "svcs": [{"name": "Sığorta xidmətləri", "form": "İframe", "platform": "VEB", "year": "2024"}]}],D=[{"name": "Şəxsiyyət vəsiqəsi məlumatlarım", "veb": "Şəxsi məlumatlarım", "mob": "Şəxsi", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Pasport məlumatlarım", "veb": "Şəxsi məlumatlarım", "mob": "Şəxsi", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Doğum haqqında şəhadətnamə məlumatlarım", "veb": "Şəxsi məlumatlarım", "mob": "Şəxsi", "qurum": "Daxili İşlər Nazirliyi", "year": "30.08.2025", "pdf": "Hazır sənəd"}, {"name": "Sərhədkeçmə məlumatlarım", "veb": "Şəxsi məlumatlarım", "mob": "Şəxsi", "qurum": "Daxili İşlər Nazirliyi", "year": "30.11.2025", "pdf": "Xeyr"}, {"name": "Milli qəhrəmanın ailə üzvü", "veb": "Şəxsi məlumatlarım", "mob": "Şəxsi", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Dəqiqləşdirilməli"}, {"name": "Fəxri ad", "veb": "Şəxsi məlumatlarım", "mob": "Şəxsi", "qurum": "Ədliyyə Nazirliyi", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "Ailə tərkibim", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Ədliyyə Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Nikah haqqında şəhadətnamə məlumatlarım", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Ədliyyə Nazirliyi", "year": "2024", "pdf": "Hazır sənəd"}, {"name": "Övladlarımın doğum haqqında şəhadətnamə məlumatları", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Ədliyyə Nazirliyi", "year": "2024", "pdf": "Hazır sənəd"}, {"name": "Övladlarımın şəxsiyyət vəsiqəsi məlumatları (0-16 yaş)", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Övladlarımın pasport məlumatları (0-16 yaş)", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Ölüm haqqında şəhadətnamələr", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Ədliyyə Nazirliyi", "year": "2024", "pdf": "Hazır sənəd"}, {"name": "Şəhid ailəsi üzvü vəsiqəsi üzrə məlumatlarım", "veb": "Ailə məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2024", "pdf": "Dəqiqləşdirilməli"}, {"name": "Subaylıq haqqında məlumatlarım", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "Ədliyyə Nazirliyi", "year": "2024", "pdf": "Dəqiqləşdirilməli"}, {"name": "Övladlığa götürmə", "veb": "Ailə məlumatlarım", "mob": "Ailə", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "Əmək müqavilələrim", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Sosial müavinət və təqaüdlərim", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "30.01.2025", "pdf": "Dəqiqləşdirilməli"}, {"name": "İş yeri məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "2024", "pdf": "mygov PDF"}, {"name": "Əmək veteranı vəsiqəsi üzrə məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2024", "pdf": "Dəqiqləşdirilməli"}, {"name": "Ünvanlı sosial yardım barədə məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2024", "pdf": "Dəqiqləşdirilməli"}, {"name": "Əmək pensiyası üzrə məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq - Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2024", "pdf": "mygov PDF"}, {"name": "Fərdi şəxsi hesab məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Şəxsi - Məşğulluq", "qurum": "ƏƏSMN", "year": "2024", "pdf": "Xeyr"}, {"name": "Məşğulluq haqqında məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "30.01.2025", "pdf": ""}, {"name": "Əlillik barədə məlumatlarım", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Sağlamlıq", "qurum": "ƏƏSMN", "year": "30.06.2025", "pdf": "Dəqiqləşdirilməli"}, {"name": "Özünüməşğulluq proqramı", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "Aktivlərlə təmin edilmə", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "İnzibati xətalar", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "İstehsalat zədəsi", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "Peşə hazırlığı", "veb": "Əmək və maliyyə məlumatlarım", "mob": "Məşğulluq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "Diplomlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Xarici diplomlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Tələbə-məzun məlumatlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Dövlət İmtahan Mərkəzi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Xaricdə Dövlət Proqramı və HTP çərçivəsində təhsilim", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "30.08.2025", "pdf": "mygov PDF"}, {"name": "Peşə təhsili sənədləri haqqında məlumatlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "30.08.2025", "pdf": "mygov PDF"}, {"name": "Ümumi təhsil haqqında məlumatlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "30.03.2025", "pdf": "mygov PDF"}, {"name": "Cari ali və ortaixtisas təhsili haqqında məlumatlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Cari ümumi təhsil haqqında məlumatlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Övladlarımın cari ümumi təhsili haqqında məlumatları", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Elm və Təhsil Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "İmtahana buraxılış vərəqəm", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Dövlət İmtahan Mərkəzi", "year": "2025", "pdf": "Hazır sənəd"}, {"name": "Elmi dərəcə və elmi ad haqqında məlumatlarım", "veb": "Təhsil məlumatlarım", "mob": "Təhsil", "qurum": "Ali Attestasiya Komissiyası", "year": "2026", "pdf": "Xeyr"}, {"name": "Sürücülük vəsiqəsi məlumatlarım", "veb": "Nəqliyyat məlumatlarım", "mob": "Nəqliyyat", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Qeydiyyatda olan nəqliyyat vasitələri", "veb": "Nəqliyyat məlumatlarım", "mob": "Nəqliyyat", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Məcburi köçkünlərin vahid aylıq müavinətləri haqqında məlumatlarım", "veb": "Məcburi köçkün məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "Qaçqınların və Məcburi Köçkünlərin İşləri Üzrə Dövlət Komitəsi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Məcburi köçkünlərin vahid məlumat bazasında qeydiyyatı haqqında məlumatlarım", "veb": "Məcburi köçkün məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "Qaçqınların və Məcburi Köçkünlərin İşləri Üzrə Dövlət Komitəsi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Məcburi köçkünlərin status sənədi haqqında məlumatlarım", "veb": "Məcburi köçkün məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "Qaçqınların və Məcburi Köçkünlərin İşləri Üzrə Dövlət Komitəsi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Məcburi köçkünlərin kommunal və digər xidmətlər üzrə dövlət büdcəsindən ödənişlər haqqında məlumatlarım", "veb": "Məcburi köçkün məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "Qaçqınların və Məcburi Köçkünlərin İşləri Üzrə Dövlət Komitəsi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Məcburi köçkünlərin yaşayış yeri haqqında məlumatlarım", "veb": "Məcburi köçkün məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "Qaçqınların və Məcburi Köçkünlərin İşləri Üzrə Dövlət Komitəsi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Mobil nömrələrim", "veb": "Əlaqə məlumatlarım", "mob": "Rabitə", "qurum": "Rəqəmsal İnkişaf və Nəqliyyat Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Stasionar telefon məlumatlarım", "veb": "Əlaqə məlumatlarım", "mob": "Rabitə", "qurum": "Rəqəmsal İnkişaf və Nəqliyyat Nazirliyi", "year": "2024", "pdf": "Xeyr"}, {"name": "Yaşayış yerim", "veb": "Əlaqə məlumatlarım", "mob": "Şəxsi", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "mygov PDF"}, {"name": "Sağlamlıq haqqında tibbi arayış", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "28.02.2025", "pdf": "Hazır sənəd"}, {"name": "Laborator analiz nəticələrim", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "2024", "pdf": "Hazır sənəd"}, {"name": "Elektron xəstəlik vərəqələrim (E-bülleten)", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "Səhiyyə Nazirliyi", "year": "28.02.2025", "pdf": "Hazır sənəd"}, {"name": "Sürücülük vəsiqəsi almaq üçün tibbi arayış", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "28.02.2025", "pdf": "Hazır sənəd"}, {"name": "Övladlarımın laborator analiz nəticələri", "veb": "Tibbi məlumatlarım", "mob": "Ailə", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "30.06.2025", "pdf": "Hazır sənəd"}, {"name": "Peyvənd məlumatlarım", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "Səhiyyə Nazirliyi", "year": "30.06.2025", "pdf": "mygov PDF"}, {"name": "Övladlarımın peyvənd məlumatları", "veb": "Tibbi məlumatlarım", "mob": "Ailə", "qurum": "Səhiyyə Nazirliyi", "year": "30.06.2025", "pdf": "mygov PDF"}, {"name": "Reseptlərim", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "Səhiyyə Nazirliyi", "year": "30.05.2025", "pdf": "Xeyr"}, {"name": "Həkim müraciətlərim", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "30.05.2025", "pdf": "Xeyr"}, {"name": "Ailə həkimim", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "17.07.2025", "pdf": "Xeyr"}, {"name": "Xəstəlik tarixçəsi üzrə məlumatlarım (Epikriz)", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "17.07.2025", "pdf": "Hazır sənəd"}, {"name": "İnstrumental diaqnostik müayinə nəticələrim", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "İcbari Tibbi Sığorta üzrə Dövlət Agentliyi", "year": "17.07.2025", "pdf": "Hazır sənəd"}, {"name": "Tibbi göndəriş məlumatlarım", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "ƏƏSMN", "year": "30.11.2025", "pdf": "Xeyr"}, {"name": "Tibbi şəhadətləndirmə", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "FRAP tədbirləri", "veb": "Tibbi məlumatlarım", "mob": "Sağlamlıq", "qurum": "ƏƏSMN", "year": "30.03.2026", "pdf": "Xeyr"}, {"name": "Hərbi qeydiyyatım və xidmətim barəsində məlumatlarım", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "2024", "pdf": "mygov PDF"}, {"name": "Hərbi qeydiyyatım", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "30.05.2025", "pdf": "mygov PDF"}, {"name": "Müddətli həqiqi hərbi xidmət məlumatım", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "30.05.2025", "pdf": "mygov PDF"}, {"name": "Müddətli həqiqi hərbi xidmətə çağırışdan möhlət", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "30.05.2025", "pdf": "mygov PDF"}, {"name": "Müddətli həqiqi hərbi xidmətə çağırışdan azad edilmə", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "30.05.2025", "pdf": "mygov PDF"}, {"name": "Müddətli həqiqi hərbi xidmətə müvəqqəti çağırılmamağa dair məlumatım", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "30.05.2025", "pdf": "mygov PDF"}, {"name": "Həqiqi hərbi xidmət keçməyim haqqında məlumat", "veb": "Hərbi məlumatlarım", "mob": "Hərbi", "qurum": "Səfərbərlik və Hərbi Xidmətə Çağırış üzrə Dövlət Xidməti", "year": "30.05.2025", "pdf": "mygov PDF"}, {"name": "Müharibə veteranı vəsiqəsi üzrə məlumatlarım", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2024", "pdf": "Dəqiqləşdirilməli"}, {"name": "Daşınmaz əmlak məlumatlarım", "veb": "Digər məlumatlarım", "mob": "Əmlak", "qurum": "ƏMDX", "year": "2024", "pdf": "Hazır sənəd"}, {"name": "Etibarnamələrim", "veb": "Digər məlumatlarım", "mob": "Nəqliyyat", "qurum": "Ədliyyə Nazirliyi", "year": "2024", "pdf": "Xeyr"}, {"name": "Cərimələrim", "veb": "Digər məlumatlarım", "mob": "Şəxsi - Nəqliyyat", "qurum": "Daxili İşlər Nazirliyi", "year": "2024", "pdf": "Xeyr"}, {"name": "Miqrasiya məlumatlarım", "veb": "Digər məlumatlarım", "mob": "Miqrasiya", "qurum": "Dövlət Miqrasiya Xidməti", "year": "2024", "pdf": "mygov PDF"}, {"name": "Azəriqaz İB - Müayinə aktı", "veb": "Digər məlumatlarım", "mob": "Kommunal", "qurum": "Azəriqaz", "year": "2025", "pdf": "Hazır sənəd"}, {"name": "ADSEA - Su təchizatı və tullantı sularının axıdılması üzrə 12 aylıq ödəniş məlumatları", "veb": "Digər məlumatlarım", "mob": "Kommunal", "qurum": "ADSEA", "year": "2025", "pdf": "Hazır sənəd"}, {"name": "Ərizə və müraciətlər", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Çağrı mərkəzi", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Sosial sığorta ödənişləri", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Pensiya təyinatı", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Pensiya ödənişləri", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Vətəndaş qəbulu", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Reabilitasiya", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Sosial avtomobil", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Mənzillə təminat", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Sanatoriya-kurort", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Əlilliyi olan şəxslərə qulluq", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Sosial tərəfdaş yardımları", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Ev təsərrüfatı", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Reabilitasiya mərkəzləri", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "İmtiyaz və güzəştlər", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Reabilitasiya vasitələri üzrə təyinat", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Xeyr"}, {"name": "Rəqəmsal əlillik kartı", "veb": "Digər məlumatlarım", "mob": "Sosial müdafiə və təminat", "qurum": "ƏƏSMN", "year": "2026", "pdf": "Dəqiqləşdirilməli"}],ST={"Ümumi xidmət sayı": 412, "API İnteqrasiya": 65, "Iframe İnteqrasiya": 347, "Yalnız VEB-də olan xidmətlər": 359, "Həm VEB həm MOBİLE da olan xidmətlər": 53, "Yalnız VEB-də API ilə olanlar": 12, "Mobile-da olan xidmətlər": 53, "Həyat hadisələri üzrə Iframe xidmətlər": 42, "İnteqrasiya olunan məlumat sayı": 96};
+
+var F={f:'all',p:'all',o:'all'}, DF={v:'all',m:'all'};
+
+var VCS={'Şəxsi məlumatlarım':'background:#dbeafe;color:#1d4ed8','Ailə məlumatlarım':'background:#fce7f3;color:#9d174d','Əmək və maliyyə məlumatlarım':'background:#d1fae5;color:#065f46','Təhsil məlumatlarım':'background:#fef3c7;color:#92400e','Nəqliyyat məlumatlarım':'background:#ede9fe;color:#5b21b6','Tibbi məlumatlarım':'background:#ffe4e6;color:#9f1239','Hərbi məlumatlarım':'background:#cffafe;color:#155e75','Məcburi köçkün məlumatlarım':'background:#ffedd5;color:#9a3412','Əlaqə məlumatlarım':'background:#f3e8ff;color:#6b21a8','Digər məlumatlarım':'background:#f1f5f9;color:#475569'};
+var MCS={'Şəxsi':'background:#eff6ff;color:#1d4ed8','Ailə':'background:#fdf2f8;color:#be185d','Məşğulluq':'background:#ecfdf5;color:#047857','Sosial müdafiə və təminat':'background:#fff7ed;color:#c2410c','Təhsil':'background:#fffbeb;color:#b45309','Nəqliyyat':'background:#f5f3ff;color:#6d28d9','Sağlamlıq':'background:#fff1f2;color:#be123c','Hərbi':'background:#ecfeff;color:#0e7490','Miqrasiya':'background:#f0fdf4;color:#15803d','Kommunal':'background:#fefce8;color:#a16207','Rabitə':'background:#faf5ff;color:#7c3aed','Əmlak':'background:#f0fdfa;color:#0f766e'};
+
+function vcs(v){return VCS[v]||'background:#f1f5f9;color:#475569';}
+function mcs(m){return MCS[m]||'background:#f8fafc;color:#64748b';}
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function tagF(f){return f==='API'?'<span class="tg ta">API</span>':'<span class="tg ti">İframe</span>';}
+function tagP(p){return p==='VEB/Mobile'?'<span class="tg tm">📱 Mobile</span><span class="tg tw">🖥️ Web</span>':'<span class="tg tw">🖥️ Web</span>';}
+function tagD(p){
+  if(p==='mygov PDF') return '<span class="tg tpdf">PDF</span>';
+  if(p==='Hazır sənəd') return '<span class="tg tdoc">Sənəd</span>';
+  if(p==='Dəqiqləşdirilməli') return '<span class="tg tpnd">Pending</span>';
+  if(p==='Xeyr') return '<span class="tg tnone">—</span>';
+  return '';
+}
+
+function init(){
+  var sc=[
+    {c:'#0891b2',bg:'#ecfeff',k:'Ümumi xidmət sayı',l:'Xidmət',ico:'⚙️'},
+    {c:'#059669',bg:'#d1fae5',k:'API İnteqrasiya',l:'API',ico:'🔗'},
+    {c:'#b45309',bg:'#fef3c7',k:'Iframe İnteqrasiya',l:'İframe',ico:'🖼️'},
+    {c:'#7c3aed',bg:'#ede9fe',k:'Yalnız VEB-də olan xidmətlər',l:'Yalnız VEB',ico:'🖥️'},
+    {c:'#be185d',bg:'#fce7f3',k:'Həm VEB həm MOBİLE da olan xidmətlər',l:'VEB+Mobile',ico:'📱'},
+    {c:'#c2410c',bg:'#ffedd5',k:'Yalnız VEB-də API ilə olanlar',l:'VEB API',ico:'🔌'},
+    {c:'#2563eb',bg:'#dbeafe',k:'Mobile-da olan xidmətlər',l:'Mobile',ico:'📲'},
+    {c:'#dc2626',bg:'#ffe4e6',k:'İnteqrasiya olunan məlumat sayı',l:'Məlumat',ico:'📄',clk:true}
+  ];
+  var sh='';
+  for(var i=0;i<sc.length;i++){
+    var s=sc[i];
+    sh+='<div class="st'+(s.clk?' clickable':'')+'"'+(s.clk?' onclick="gt(\'d\')"':'')+' style="--c:'+s.c+'">';
+    sh+='<div class="st-icon" style="background:'+s.bg+'">'+s.ico+'</div>';
+    sh+='<div class="st-body">';
+    sh+='<div class="st-num" style="color:'+s.c+'">'+(ST[s.k]||0)+'</div>';
+    sh+='<div class="st-lbl">'+s.l+'</div>';
+    sh+='</div></div>';
+  }
+  document.getElementById('sR').innerHTML=sh;
+
+  var oh='<span class="fl">Qurum:</span><span class="ch on" onclick="sf(\'o\',\'all\',this)">Hamısı ('+S.length+')</span>';
+  for(var i=0;i<S.length;i++){
+    var o=S[i];
+    var nm=o.name.length>30?o.name.substring(0,30)+'…':o.name;
+    var safe=o.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    oh+='<span class="ch" onclick="sf(\'o\',\''+safe+'\',this)">'+o.icon+' '+esc(nm)+'</span>';
+  }
+  document.getElementById('fO').innerHTML=oh;
+
+  var vc=[]; var seen={};
+  for(var i=0;i<D.length;i++){if(D[i].veb&&!seen[D[i].veb]){vc.push(D[i].veb);seen[D[i].veb]=1;}}
+  vc.sort();
+  var vh='<span class="fl">VEB:</span><span class="ch on" onclick="df(\'v\',\'all\',this)">Hamısı</span>';
+  for(var i=0;i<vc.length;i++){
+    var safe=vc[i].replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    vh+='<span class="ch cv" onclick="df(\'v\',\''+safe+'\',this)">'+esc(vc[i])+'</span>';
+  }
+  document.getElementById('fV').innerHTML=vh;
+
+  var mc=[]; seen={};
+  for(var i=0;i<D.length;i++){if(D[i].mob&&!seen[D[i].mob]){mc.push(D[i].mob);seen[D[i].mob]=1;}}
+  mc.sort();
+  var mh='<span class="fl">Mobile:</span><span class="ch on" onclick="df(\'m\',\'all\',this)">Hamısı</span>';
+  for(var i=0;i<mc.length;i++){
+    var safe=mc[i].replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    mh+='<span class="ch cp" onclick="df(\'m\',\''+safe+'\',this)">'+esc(mc[i])+'</span>';
+  }
+  document.getElementById('fM').innerHTML=mh;
+
+  rS(); rD(); buildFL();
+}
+
+function gt(t){
+  var tabs=document.querySelectorAll('.tb');
+  tabs[0].classList.toggle('on',t==='s');
+  tabs[1].classList.toggle('on',t==='d');
+  document.getElementById('ps').classList.toggle('on',t==='s');
+  document.getElementById('pd').classList.toggle('on',t==='d');
+}
+
+function sf(k,v,el){
+  F[k]=v;
+  var chips=el.parentElement.querySelectorAll('.ch');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('on');
+  el.classList.add('on');
+  rS();
+}
+
+function df(k,v,el){
+  DF[k]=v;
+  var chips=el.parentElement.querySelectorAll('.ch');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('on');
+  el.classList.add('on');
+  rD();
+}
+
+function rS(){
+  var q=document.getElementById('sQ').value.toLowerCase().trim();
+  var el=document.getElementById('sL');
+  var html='', n=0;
+  for(var i=0;i<S.length;i++){
+    var o=S[i];
+    if(F.o!=='all'&&o.name!==F.o) continue;
+    var fs=[];
+    for(var j=0;j<o.svcs.length;j++){
+      var s=o.svcs[j];
+      if(F.f!=='all'&&s.form!==F.f) continue;
+      if(F.p!=='all'){
+        if(F.p==='VEB'&&s.platform!=='VEB') continue;
+        if(F.p==='VEB/Mobile'&&s.platform!=='VEB/Mobile') continue;
+      }
+      if(q&&!(o.name+' '+s.name).toLowerCase().includes(q)) continue;
+      fs.push(s);
+    }
+    if(!fs.length) continue;
+    n++;
+    var delay=Math.min(n*20,300);
+    var rows='';
+    for(var j=0;j<fs.length;j++){
+      var s=fs[j];
+      rows+='<div class="sv"><span class="sn">'+esc(s.name)+'</span>'+tagF(s.form)+' '+tagP(s.platform)+' <span class="sy">'+s.year+'</span></div>';
+    }
+    html+='<div class="oc" style="animation-delay:'+delay+'ms" id="oc'+i+'">'
+      +'<div class="oh" onclick="tog(\'oc'+i+'\')">'
+      +'<div class="oi">'+o.icon+'</div>'
+      +'<div class="on2">'+esc(o.name)+'</div>'
+      +'<div class="ocnt">'+fs.length+'</div>'
+      +'<div class="oar">&#9660;</div>'
+      +'</div>'
+      +'<div class="ob"><div class="obi">'+rows+'</div></div>'
+      +'</div>';
+  }
+  el.innerHTML=html||'<div class="empty"><span class="empty-ico">🔍</span>Nəticə tapılmadı</div>';
+}
+
+function tog(id){document.getElementById(id).classList.toggle('open');}
+
+function rD(){
+  var q=document.getElementById('dQ').value.toLowerCase().trim();
+  var f=[];
+  for(var i=0;i<D.length;i++){
+    var d=D[i];
+    if(DF.v!=='all'&&d.veb!==DF.v) continue;
+    if(DF.m!=='all'&&d.mob!==DF.m) continue;
+    if(q&&!(d.name+' '+d.qurum+' '+d.veb+' '+d.mob).toLowerCase().includes(q)) continue;
+    f.push(d);
+  }
+  var vg={},mg={};
+  for(var i=0;i<f.length;i++){
+    var d=f[i];
+    if(d.veb){if(!vg[d.veb])vg[d.veb]=[];vg[d.veb].push(d);}
+    if(d.mob){if(!mg[d.mob])mg[d.mob]=[];mg[d.mob].push(d);}
+  }
+  var vk=Object.keys(vg).sort(), mk=Object.keys(mg).sort();
+  var lh='<div class="dch">🖥️ VEB Kateqoriyaları <span class="dch-cnt">'+f.filter(function(d){return d.veb;}).length+'</span></div>';
+  if(!vk.length) lh+='<div class="empty"><span class="empty-ico">📭</span>Nəticə yoxdur</div>';
+  else for(var i=0;i<vk.length;i++){
+    var k=vk[i], rows='';
+    for(var j=0;j<vg[k].length;j++){
+      var d=vg[k][j];
+      rows+='<div class="di"><span class="din">'+esc(d.name)+'</span>'+tagD(d.pdf)+'<span class="diq">'+esc(d.qurum)+'</span><span class="diy">'+d.year+'</span></div>';
+    }
+    lh+='<div class="dg"><div class="dgt dgtv">'+esc(k)+'<span class="dgcnt">'+vg[k].length+'</span></div>'+rows+'</div>';
+  }
+  var rh='<div class="dch">📱 Mobile Kateqoriyaları <span class="dch-cnt">'+f.filter(function(d){return d.mob;}).length+'</span></div>';
+  if(!mk.length) rh+='<div class="empty"><span class="empty-ico">📭</span>Nəticə yoxdur</div>';
+  else for(var i=0;i<mk.length;i++){
+    var k=mk[i], rows='';
+    for(var j=0;j<mg[k].length;j++){
+      var d=mg[k][j];
+      rows+='<div class="di"><span class="din">'+esc(d.name)+'</span>'+tagD(d.pdf)+'<span class="diq">'+esc(d.qurum)+'</span><span class="diy">'+d.year+'</span></div>';
+    }
+    rh+='<div class="dg"><div class="dgt dgtm">'+esc(k)+'<span class="dgcnt">'+mg[k].length+'</span></div>'+rows+'</div>';
+  }
+  document.getElementById('dC').innerHTML='<div>'+lh+'</div><div>'+rh+'</div>';
+}
+
+function buildFL(){
+  var rows='';
+  for(var i=0;i<D.length;i++){
+    var d=D[i];
+    var vs=vcs(d.veb), ms=mcs(d.mob);
+    rows+='<tr class="flr"'
+      +' data-n="'+esc(d.name).toLowerCase()+'"'
+      +' data-v="'+(d.veb||'').toLowerCase()+'"'
+      +' data-m="'+(d.mob||'').toLowerCase()+'"'
+      +' data-o="'+(d.qurum||'').toLowerCase()+'">'
+      +'<td class="flnum">'+(i+1)+'</td>'
+      +'<td class="flname">'+esc(d.name)+'</td>'
+      +'<td><span class="flvtag" style="'+vs+'">'+esc(d.veb||'')+'</span></td>'
+      +'<td><span class="flmtag" style="'+ms+'">'+esc(d.mob||'')+'</span></td>'
+      +'<td class="florg">'+esc(d.qurum||'')+'</td>'
+      +'<td class="flyr">'+(d.year||'')+'</td>'
+      +'<td>'+tagD(d.pdf)+'</td>'
+      +'</tr>';
+  }
+  document.getElementById('flBody').innerHTML=rows;
+}
+
+function filterFL(){
+  var q=document.getElementById('flQ').value.toLowerCase().trim();
+  var rows=document.querySelectorAll('.flr');
+  var vis=0;
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    var show=!q||r.dataset.n.includes(q)||r.dataset.v.includes(q)||r.dataset.m.includes(q)||r.dataset.o.includes(q);
+    r.style.display=show?'':'none';
+    if(show) vis++;
+  }
+  document.getElementById('flCnt').textContent=vis+' məlumat göstərilir';
+}
+
+init();
+</script>
+</body>
+</html>
