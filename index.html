@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>mygov ¬∑ ƒ∞nteqrasiya paneli</title>
+<title>mygov · İnteqrasiya paneli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -246,99 +246,99 @@ td.muted{color:var(--text-2)}
 </style>
 </head>
 <body>
-<div class="lov" id="lov"><div class="spin"></div><div style="color:var(--text-2)">M…ôlumatlar y√ºkl…ônir‚Ä¶</div></div>
+<div class="lov" id="lov"><div class="spin"></div><div style="color:var(--text-2)">Məlumatlar yüklənir…</div></div>
 <div class="tip" id="tip"></div>
 
 <header class="hdr"><div class="wrap">
   <a class="brand" href="#">
     <div class="mark">mg</div>
-    <div style="min-width:0"><div class="brand-t">my<b>gov</b> ¬∑ ƒ∞nteqrasiya paneli</div><div class="brand-s">R…ôq…ômsal xidm…ôtl…ôr v…ô m…ôlumatlar</div></div>
+    <div style="min-width:0"><div class="brand-t">my<b>gov</b> · İnteqrasiya paneli</div><div class="brand-s">Rəqəmsal xidmətlər və məlumatlar</div></div>
   </a>
   <div class="hdr-sp"></div>
-  <div class="upd"><span class="dot"></span><span id="upd">‚Äî</span></div>
-  <button class="btn icon" id="themeBtn" title="Tema" aria-label="Temanƒ± d…ôyi≈ü">
+  <div class="upd"><span class="dot"></span><span id="upd">—</span></div>
+  <button class="btn icon" id="themeBtn" title="Tema" aria-label="Temanı dəyiş">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
   </button>
   <div class="menu" id="expMenu">
-    <button class="btn primary" id="expBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="lbl">Excel-…ô y√ºkl…ô</span></button>
+    <button class="btn primary" id="expBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="lbl">Excel-ə yüklə</span></button>
     <div class="menu-pop">
-      <button data-exp="view"><div>G√∂r√ºn…ôn n…ôtic…ôl…ôr<small>Aktiv b√∂lm…ô, se√ßilmi≈ü filtrl…ôrl…ô</small></div></button>
+      <button data-exp="view"><div>Görünən nəticələr<small>Aktiv bölmə, seçilmiş filtrlərlə</small></div></button>
       <div class="menu-sep"></div>
-      <button data-exp="svc"><div>B√ºt√ºn xidm…ôtl…ôr</div></button>
-      <button data-exp="data"><div>B√ºt√ºn m…ôlumatlar</div></button>
-      <button data-exp="all"><div>Hamƒ±sƒ± (bir faylda)</div></button>
+      <button data-exp="svc"><div>Bütün xidmətlər</div></button>
+      <button data-exp="data"><div>Bütün məlumatlar</div></button>
+      <button data-exp="all"><div>Hamısı (bir faylda)</div></button>
     </div>
   </div>
 </div></header>
 
 <main class="wrap">
   <section class="hero">
-    <h1>ƒ∞nteqrasiya olunmu≈ü xidm…ôt v…ô m…ôlumatlar</h1>
-    <p id="heroSub">‚Äî</p>
+    <h1>İnteqrasiya olunmuş xidmət və məlumatlar</h1>
+    <p id="heroSub">—</p>
   </section>
 
   <section class="kpis" id="kpis"></section>
   <section class="card mx" id="mini"></section>
 
   <section class="charts">
-    <div class="card ch"><div class="ch-h"><div><div class="ch-t">ƒ∞ll…ôr √ºzr…ô inteqrasiya</div><div class="ch-s">H…ôr il inteqrasiya olunan xidm…ôt v…ô m…ôlumat sayƒ±</div></div><div class="lg" id="lgYear"></div></div><div id="chYear"></div></div>
+    <div class="card ch"><div class="ch-h"><div><div class="ch-t">İllər üzrə inteqrasiya</div><div class="ch-s">Hər il inteqrasiya olunan xidmət və məlumat sayı</div></div><div class="lg" id="lgYear"></div></div><div id="chYear"></div></div>
   </section>
 
   <nav class="tabs" role="tablist">
-    <button class="tab on" data-tab="svc">Xidm…ôtl…ôr <span class="cnt" id="cSvc">0</span></button>
-    <button class="tab" data-tab="data">M…ôlumat v…ô s…ôn…ôdl…ôr <span class="cnt" id="cData">0</span></button>
+    <button class="tab on" data-tab="svc">Xidmətlər <span class="cnt" id="cSvc">0</span></button>
+    <button class="tab" data-tab="data">Məlumat və sənədlər <span class="cnt" id="cData">0</span></button>
   </nav>
 
   <!-- Services -->
   <section class="pane on" id="p-svc">
     <div class="bar-row">
-      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sQ" placeholder="Xidm…ôt v…ô ya qurum axtar‚Ä¶" autocomplete="off"></label>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sQ" placeholder="Xidmət və ya qurum axtar…" autocomplete="off"></label>
       <div class="picker" id="orgPicker">
-        <button class="btn" id="orgBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><span id="orgBtnT">B√ºt√ºn qurumlar</span></button>
-        <div class="picker-pop"><input id="orgQ" placeholder="Qurum axtar‚Ä¶"><div class="picker-list" id="orgList"></div></div>
+        <button class="btn" id="orgBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><span id="orgBtnT">Bütün qurumlar</span></button>
+        <div class="picker-pop"><input id="orgQ" placeholder="Qurum axtar…"><div class="picker-list" id="orgList"></div></div>
       </div>
-      <div class="seg" id="svcView"><button class="on" data-v="cards">Qruplar</button><button data-v="table">C…ôdv…ôl</button></div>
+      <div class="seg" id="svcView"><button class="on" data-v="cards">Qruplar</button><button data-v="table">Cədvəl</button></div>
     </div>
     <div class="bar-row">
-      <span class="fgroup"><span class="flbl">Forma</span><span class="seg" id="fForm"><button class="on" data-v="">Hamƒ±sƒ±</button><button data-v="API">API</button><button data-v="Iframe">Iframe</button></span></span>
-      <span class="fgroup"><span class="flbl">Platforma</span><span class="seg" id="fPlat"><button class="on" data-v="">Hamƒ±sƒ±</button><button data-v="mob">VEB + Mobile</button><button data-v="web">Yalnƒ±z VEB</button><button data-v="mobonly">Yalnƒ±z Mobile</button></span></span>
-      <span class="fgroup"><span class="flbl">ƒ∞l</span><span class="seg" id="fYear"></span></span>
+      <span class="fgroup"><span class="flbl">Forma</span><span class="seg" id="fForm"><button class="on" data-v="">Hamısı</button><button data-v="API">API</button><button data-v="Iframe">Iframe</button></span></span>
+      <span class="fgroup"><span class="flbl">Platforma</span><span class="seg" id="fPlat"><button class="on" data-v="">Hamısı</button><button data-v="mob">VEB + Mobile</button><button data-v="web">Yalnız VEB</button><button data-v="mobonly">Yalnız Mobile</button></span></span>
+      <span class="fgroup"><span class="flbl">İl</span><span class="seg" id="fYear"></span></span>
     </div>
     <div class="chips" id="orgChips"></div>
-    <div class="resinfo"><span id="svcInfo"></span><span><button class="linkbtn" id="expandAll">Hamƒ±sƒ±nƒ± a√ß</button> ¬∑ <button class="linkbtn" id="svcReset">Filtrl…ôri sƒ±fƒ±rla</button></span></div>
+    <div class="resinfo"><span id="svcInfo"></span><span><button class="linkbtn" id="expandAll">Hamısını aç</button> · <button class="linkbtn" id="svcReset">Filtrləri sıfırla</button></span></div>
     <div id="svcOut"></div>
   </section>
 
   <!-- Data -->
   <section class="pane" id="p-data">
     <div class="bar-row">
-      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="dQ" placeholder="M…ôlumat, kateqoriya v…ô ya qurum axtar‚Ä¶" autocomplete="off"></label>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="dQ" placeholder="Məlumat, kateqoriya və ya qurum axtar…" autocomplete="off"></label>
       <select class="sel" id="dMob"></select>
       <select class="sel" id="dOrg"></select>
-      <div class="seg" id="dataView"><button class="on" data-v="groups">Kateqoriyalar</button><button data-v="table">C…ôdv…ôl</button></div>
+      <div class="seg" id="dataView"><button class="on" data-v="groups">Kateqoriyalar</button><button data-v="table">Cədvəl</button></div>
     </div>
     <div class="bar-row">
-      <span class="fgroup"><span class="flbl">ƒ∞l</span><span class="seg" id="dYear"></span></span>
+      <span class="fgroup"><span class="flbl">İl</span><span class="seg" id="dYear"></span></span>
     </div>
     <div class="chips" id="dVeb"></div>
-    <div class="resinfo"><span id="dataInfo"></span><button class="linkbtn" id="dataReset">Filtrl…ôri sƒ±fƒ±rla</button></div>
+    <div class="resinfo"><span id="dataInfo"></span><button class="linkbtn" id="dataReset">Filtrləri sıfırla</button></div>
     <div id="dataOut"></div>
   </section>
 
 
-  <div class="foot">M…ônb…ô: ‚Äúmygov - inteqrasiyalar‚Äù c…ôdv…ôli ¬∑ <span id="srcInfo"></span></div>
+  <div class="foot">Mənbə: “mygov - inteqrasiyalar” cədvəli · <span id="srcInfo"></span></div>
 </main>
 
 <script>
 /* ===================== Config ===================== */
 var CONFIG = {
   sheetId: "1XPWJ-9uN4awNtiAMKGNv9aM-ya7-Q-7-",
-  sheets: { svc: "Xidm…ôtl…ôr", data: "M…ôlumat v…ô s…ôn…ôdl…ôr" },
+  sheets: { svc: "Xidmətlər", data: "Məlumat və sənədlər" },
   headerRow: 3,
   localFile: "data.json"
 };
-var MONTHS = ["Yanvar","Fevral","Mart","Aprel","May","ƒ∞yun","ƒ∞yul","Avqust","Sentyabr","Oktyabr","Noyabr","Dekabr"];
-var MON_S = ["Yan","Fev","Mar","Apr","May","ƒ∞yn","ƒ∞yl","Avq","Sen","Okt","Noy","Dek"];
+var MONTHS = ["Yanvar","Fevral","Mart","Aprel","May","İyun","İyul","Avqust","Sentyabr","Oktyabr","Noyabr","Dekabr"];
+var MON_S = ["Yan","Fev","Mar","Apr","May","İyn","İyl","Avq","Sen","Okt","Noy","Dek"];
 
 /* ===================== State ===================== */
 var S = [], D = [];
@@ -403,7 +403,7 @@ function fetchGviz(sheet){
     return r.text();
   }).then(function(t){
     var j = JSON.parse(t.substring(t.indexOf("{"), t.lastIndexOf("}") + 1));
-    if (j.status === "error") throw new Error((j.errors && j.errors[0] && j.errors[0].detailed_message) || "gviz x…ôtasƒ±");
+    if (j.status === "error") throw new Error((j.errors && j.errors[0] && j.errors[0].detailed_message) || "gviz xətası");
     var cols = j.table.cols.map(function(c){ return c.label || ""; });
     var rows = j.table.rows.map(function(r){
       return (r.c || []).map(function(c){
@@ -432,9 +432,9 @@ function txt(r,i){ var v = cell(r,i); return v === "" ? "" : String(v).replace(/
 
 function parseSvc(t){
   var c = t.cols;
-  var iOrg = colIdx(c,[eq("qurum")]), iName = colIdx(c,[has("xidm…ôtin adƒ±"),has("adƒ±")]),
+  var iOrg = colIdx(c,[eq("qurum")]), iName = colIdx(c,[has("xidmətin adı"),has("adı")]),
       iForm = colIdx(c,[has("forma")]), iPlat = colIdx(c,[has("platforma")]),
-      iYear = colIdx(c,[has("ili"),eq("il")]), iMon = colIdx(c,[has("ayƒ±"),eq("ay")]);
+      iYear = colIdx(c,[has("ili"),eq("il")]), iMon = colIdx(c,[has("ayı"),eq("ay")]);
   var out = [], last = "";
   t.rows.forEach(function(r){
     var org = txt(r,iOrg); if (org) last = org; else org = last;
@@ -447,8 +447,8 @@ function parseSvc(t){
 }
 function parseData(t){
   var c = t.cols;
-  var iName = colIdx(c,[has("adƒ±")]), iVeb = colIdx(c,[eq("veb")]), iMob = colIdx(c,[eq("mobile")]),
-      iOrg = colIdx(c,[eq("qurum")]), iYear = colIdx(c,[eq("il"),has("ili")]), iMon = colIdx(c,[eq("ay"),has("ayƒ±")]),
+  var iName = colIdx(c,[has("adı")]), iVeb = colIdx(c,[eq("veb")]), iMob = colIdx(c,[eq("mobile")]),
+      iOrg = colIdx(c,[eq("qurum")]), iYear = colIdx(c,[eq("il"),has("ili")]), iMon = colIdx(c,[eq("ay"),has("ayı")]),
       iPdf = colIdx(c,[has("pdf")]);
   var out = [];
   t.rows.forEach(function(r){
@@ -462,28 +462,28 @@ function parseData(t){
 function loadAll(){
   var forceLocal = /[?&]src=local/.test(location.search);
   var fromSheets = Promise.all([fetchGviz(CONFIG.sheets.svc), fetchGviz(CONFIG.sheets.data)])
-    .then(function(a){ return {svc:a[0], data:a[1], src:"Google Drive (canlƒ±)"}; });
+    .then(function(a){ return {svc:a[0], data:a[1], src:"Google Drive (canlı)"}; });
   var fromLocal = function(){
-    return fetch(CONFIG.localFile, {cache:"no-store"}).then(function(r){ if(!r.ok) throw new Error("data.json tapƒ±lmadƒ±"); return r.json(); })
-      .then(function(j){ return {svc:j[CONFIG.sheets.svc], data:j[CONFIG.sheets.data], src:"lokal n√ºsx…ô (data.json)"}; });
+    return fetch(CONFIG.localFile, {cache:"no-store"}).then(function(r){ if(!r.ok) throw new Error("data.json tapılmadı"); return r.json(); })
+      .then(function(j){ return {svc:j[CONFIG.sheets.svc], data:j[CONFIG.sheets.data], src:"lokal nüsxə (data.json)"}; });
   };
   var p = forceLocal ? fromLocal() : fromSheets.catch(function(e){ console.warn("Sheets:", e); return fromLocal(); });
   p.then(function(res){
     S = parseSvc(res.svc); D = parseData(res.data);
-    if (!S.length) throw new Error("Xidm…ôtl…ôr v…ôr…ôqi bo≈ü g…ôldi");
+    if (!S.length) throw new Error("Xidmətlər vərəqi boş gəldi");
     $("srcInfo").textContent = res.src;
     var now = new Date(), z = function(n){ return (n<10?"0":"") + n; };
-    $("upd").textContent = "Yenil…ôndi: " + z(now.getDate()) + "." + z(now.getMonth()+1) + "." + now.getFullYear() + " " + z(now.getHours()) + ":" + z(now.getMinutes());
+    $("upd").textContent = "Yeniləndi: " + z(now.getDate()) + "." + z(now.getMonth()+1) + "." + now.getFullYear() + " " + z(now.getHours()) + ":" + z(now.getMinutes());
     init();
     $("lov").classList.add("hide");
   }).catch(function(e){
-    $("lov").innerHTML = '<div class="err card"><h3>Y√ºkl…ôm…ô x…ôtasƒ±</h3><p>' + esc(e.message || e) + '</p><button class="btn primary" onclick="location.reload()">Yenid…ôn c…ôhd et</button></div>';
+    $("lov").innerHTML = '<div class="err card"><h3>Yükləmə xətası</h3><p>' + esc(e.message || e) + '</p><button class="btn primary" onclick="location.reload()">Yenidən cəhd et</button></div>';
   });
 }
 
 /* ===================== Icons ===================== */
-var ICONS = [["…ôm…ôk","üë∑"],["r…ôq…ômsal inki≈üaf","üì°"],["se√ßki","üó≥Ô∏è"],["g√∂mr√ºk","üõÉ"],["daxili","üõ°Ô∏è"],["elm","üéì"],["…ôdliyy…ô","‚öñÔ∏è"],["s…ôhiyy…ô","üè•"],["statistika","üìä"],["iqtisadiyyat","üíº"],["arxiv","üìö"],["ekologiya","üåø"],["…ôqli","üí°"],["m√ºdafi…ô","üõ†Ô∏è"],["energetika","‚ö°"],["miqrasiya","üõÇ"],["v…ôt…ônda≈ülara xidm…ôt","ü§ù"],["xarici","üåê"],["s…ôf…ôrb…ôrlik","üéñÔ∏è"],["az…ôri≈üƒ±q","üí°"],["ombudsman","üë§"],["imtahan","üìù"],["m…ônzil","üèóÔ∏è"],["ipoteka","üè†"],["qida","üçΩÔ∏è"],["aviasiya","‚úàÔ∏è"],["icra","üèõÔ∏è"],["m…ôrk…ôzi bank","üè¶"],["su ","üíß"],["az…ôriqaz","üî•"],["t…ôbib","ü©∫"],["ayna","üö¶"],["dig…ôr","üì¶"]];
-function icon(n){ n = norm(n) + " "; for (var i=0;i<ICONS.length;i++){ if (n.indexOf(ICONS[i][0]) !== -1) return ICONS[i][1]; } return "üèõÔ∏è"; }
+var ICONS = [["əmək","👷"],["rəqəmsal inkişaf","📡"],["seçki","🗳️"],["gömrük","🛃"],["daxili","🛡️"],["elm","🎓"],["ədliyyə","⚖️"],["səhiyyə","🏥"],["statistika","📊"],["iqtisadiyyat","💼"],["arxiv","📚"],["ekologiya","🌿"],["əqli","💡"],["müdafiə","🛠️"],["energetika","⚡"],["miqrasiya","🛂"],["vətəndaşlara xidmət","🤝"],["xarici","🌐"],["səfərbərlik","🎖️"],["azərişıq","💡"],["ombudsman","👤"],["imtahan","📝"],["mənzil","🏗️"],["ipoteka","🏠"],["qida","🍽️"],["aviasiya","✈️"],["icra","🏛️"],["mərkəzi bank","🏦"],["su ","💧"],["azəriqaz","🔥"],["təbib","🩺"],["ayna","🚦"],["digər","📦"]];
+function icon(n){ n = norm(n) + " "; for (var i=0;i<ICONS.length;i++){ if (n.indexOf(ICONS[i][0]) !== -1) return ICONS[i][1]; } return "🏛️"; }
 
 /* ===================== Tooltip ===================== */
 var tipEl;
@@ -519,7 +519,7 @@ function renderKPIs(){
   var svcLY = S.filter(function(s){ return +s.year === ly; }).length, dataLY = D.filter(function(d){ return +d.year === ly; }).length;
   var pct = function(a,b){ return b ? Math.round(a/b*100) : 0; };
 
-  $("heroSub").textContent = nOrg + " d√∂vl…ôt qurumu ¬∑ " + fmt(S.length) + " xidm…ôt ¬∑ " + fmt(D.length) + " m…ôlumat v…ô s…ôn…ôd. " + ly + "-c√º ild…ô " + (svcLY + dataLY) + " yeni inteqrasiya.";
+  $("heroSub").textContent = nOrg + " dövlət qurumu · " + fmt(S.length) + " xidmət · " + fmt(D.length) + " məlumat və sənəd. " + ly + "-cü ildə " + (svcLY + dataLY) + " yeni inteqrasiya.";
 
   var ic = {
     svc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
@@ -528,25 +528,25 @@ function renderKPIs(){
     mob:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>'
   };
   var k = "";
-  k += '<div class="card kpi click" data-go="svc"><div class="kpi-h">Xidm…ôtl…ôr<span class="kpi-ic">'+ic.svc+'</span></div><div class="kpi-v">'+fmt(S.length)+'</div>'+
+  k += '<div class="card kpi click" data-go="svc"><div class="kpi-h">Xidmətlər<span class="kpi-ic">'+ic.svc+'</span></div><div class="kpi-v">'+fmt(S.length)+'</div>'+
        '<div class="split"><i style="width:'+pct(api,S.length)+'%;background:var(--s-api)"></i><i style="width:'+pct(ifr,S.length)+'%;background:var(--s-iframe)"></i></div>'+
        '<div class="lg"><span><em style="background:var(--s-api)"></em>API <b>'+api+'</b></span><span><em style="background:var(--s-iframe)"></em>Iframe <b>'+ifr+'</b></span></div></div>';
-  k += '<div class="card kpi click" data-go="data"><div class="kpi-h">M…ôlumat v…ô s…ôn…ôdl…ôr<span class="kpi-ic" style="background:var(--s-iframe-soft);color:var(--s-iframe)">'+ic.data+'</span></div><div class="kpi-v">'+fmt(D.length)+'</div><div class="kpi-s">"M…ôlumatlarƒ±m" b√∂lm…ôsind…ô inteqrasiya olunmu≈ü m…ôlumat v…ô s…ôn…ôd</div></div>';
-  k += '<div class="card kpi click" data-go="org"><div class="kpi-h">Qurumlar<span class="kpi-ic" style="background:var(--surface-3);color:var(--text-2)">'+ic.org+'</span></div><div class="kpi-v">'+nOrg+'</div><div class="kpi-s">Xidm…ôti inteqrasiya olunmu≈ü d√∂vl…ôt qurumu v…ô t…ô≈ükilat</div></div>';
-  k += '<div class="card kpi click" data-go="mob"><div class="kpi-h">Mobil t…ôtbiqd…ô<span class="kpi-ic" style="background:var(--s-mobile-soft);color:var(--s-mobile)">'+ic.mob+'</span></div><div class="kpi-v">'+mob+'</div>'+
+  k += '<div class="card kpi click" data-go="data"><div class="kpi-h">Məlumat və sənədlər<span class="kpi-ic" style="background:var(--s-iframe-soft);color:var(--s-iframe)">'+ic.data+'</span></div><div class="kpi-v">'+fmt(D.length)+'</div><div class="kpi-s">"Məlumatlarım" bölməsində inteqrasiya olunmuş məlumat və sənəd</div></div>';
+  k += '<div class="card kpi click" data-go="org"><div class="kpi-h">Qurumlar<span class="kpi-ic" style="background:var(--surface-3);color:var(--text-2)">'+ic.org+'</span></div><div class="kpi-v">'+nOrg+'</div><div class="kpi-s">Xidməti inteqrasiya olunmuş dövlət qurumu və təşkilat</div></div>';
+  k += '<div class="card kpi click" data-go="mob"><div class="kpi-h">Mobil tətbiqdə<span class="kpi-ic" style="background:var(--s-mobile-soft);color:var(--s-mobile)">'+ic.mob+'</span></div><div class="kpi-v">'+mob+'</div>'+
        '<div class="split"><i style="width:'+pct(mob,S.length)+'%;background:var(--s-mobile)"></i><i style="width:'+(100-pct(mob,S.length))+'%;background:var(--surface-3)"></i></div>'+
-       '<div class="kpi-s">Xidm…ôtl…ôrin <b style="color:var(--text)">'+pct(mob,S.length)+'%</b>-i mobil t…ôtbiqd…ô d…ô var</div></div>';
+       '<div class="kpi-s">Xidmətlərin <b style="color:var(--text)">'+pct(mob,S.length)+'%</b>-i mobil tətbiqdə də var</div></div>';
   $("kpis").innerHTML = k;
 
-  // forma √ó platforma matrix
-  var P = [["mob","VEB + Mobile"],["web","Yalnƒ±z VEB"],["mobonly","Yalnƒ±z Mobile"]];
+  // forma × platforma matrix
+  var P = [["mob","VEB + Mobile"],["web","Yalnız VEB"],["mobonly","Yalnız Mobile"]];
   var inP = function(s, p){ return p === "mob" ? (isMob(s.plat) && !isMobOnly(s.plat)) : p === "web" ? isWebOnly(s.plat) : isMobOnly(s.plat); };
   var cellC = function(f, p){ var n = S.filter(function(s){ return (!f || s.form === f) && (!p || inP(s,p)); }).length;
-    return '<td class="'+(n ? "go" : "z")+'"'+(n ? ' data-f="'+f+'" data-p="'+p+'" title="Xidm…ôtl…ôri g√∂st…ôr"' : "")+'>'+fmt(n)+'</td>'; };
+    return '<td class="'+(n ? "go" : "z")+'"'+(n ? ' data-f="'+f+'" data-p="'+p+'" title="Xidmətləri göstər"' : "")+'>'+fmt(n)+'</td>'; };
   var rowH = function(f, label){ return '<tr'+(f === "" ? ' class="tot"' : "")+'><td>'+label+'</td>'+P.map(function(p){ return cellC(f, p[0]); }).join("")+cellC(f,"")+'</tr>'; };
-  $("mini").innerHTML = '<div class="mx-h"><div class="ch-t">Forma v…ô platforma √ºzr…ô b√∂lg√º</div><div class="ch-s">R…ôq…ôm…ô klikl…ôyin ‚Äî h…ômin xidm…ôtl…ôr a√ßƒ±lsƒ±n</div></div>' +
-    '<div class="tw"><table><thead><tr><th>ƒ∞nteqrasiya formasƒ±</th>'+P.map(function(p){ return '<th>'+p[1]+'</th>'; }).join("")+'<th>C…ômi</th></tr></thead><tbody>' +
-    rowH("API","API") + rowH("Iframe","Iframe") + rowH("","C…ômi") + '</tbody></table></div>';
+  $("mini").innerHTML = '<div class="mx-h"><div class="ch-t">Forma və platforma üzrə bölgü</div><div class="ch-s">Rəqəmə klikləyin — həmin xidmətlər açılsın</div></div>' +
+    '<div class="tw"><table><thead><tr><th>İnteqrasiya forması</th>'+P.map(function(p){ return '<th>'+p[1]+'</th>'; }).join("")+'<th>Cəmi</th></tr></thead><tbody>' +
+    rowH("API","API") + rowH("Iframe","Iframe") + rowH("","Cəmi") + '</tbody></table></div>';
   $("mini").querySelectorAll("td.go").forEach(function(td){
     td.addEventListener("click", function(){
       SF.form = td.getAttribute("data-f"); SF.plat = td.getAttribute("data-p");
@@ -596,8 +596,8 @@ function renderCharts(){
   var years = Object.keys(ys).sort();
   var cnt = function(arr, y){ return arr.filter(function(x){ return x.year === y; }).length; };
   var sv = years.map(function(y){ return cnt(S,y); }), dv = years.map(function(y){ return cnt(D,y); });
-  groupedBars($("chYear"), years, [{name:"Xidm…ôt", color:"var(--s-api)", vals:sv},{name:"M…ôlumat", color:"var(--s-iframe)", vals:dv}], {label:"ƒ∞ll…ôr √ºzr…ô", labels:true, bw:46, w:640, h:240});
-  legend($("lgYear"), [["Xidm…ôt","var(--s-api)"],["M…ôlumat","var(--s-iframe)"]]);
+  groupedBars($("chYear"), years, [{name:"Xidmət", color:"var(--s-api)", vals:sv},{name:"Məlumat", color:"var(--s-iframe)", vals:dv}], {label:"İllər üzrə", labels:true, bw:46, w:640, h:240});
+  legend($("lgYear"), [["Xidmət","var(--s-api)"],["Məlumat","var(--s-iframe)"]]);
 
 }
 
@@ -609,7 +609,7 @@ function seg(id, onChange){
   });
 }
 function segSet(id, v){ $(id).querySelectorAll("button").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-v") === v); }); }
-function fillSeg(id, values, labels){ $(id).innerHTML = '<button class="on" data-v="">Hamƒ±sƒ±</button>' + values.map(function(v,i){ return '<button data-v="'+esc(v)+'">'+esc(labels ? labels[i] : v)+'</button>'; }).join(""); }
+function fillSeg(id, values, labels){ $(id).innerHTML = '<button class="on" data-v="">Hamısı</button>' + values.map(function(v,i){ return '<button data-v="'+esc(v)+'">'+esc(labels ? labels[i] : v)+'</button>'; }).join(""); }
 
 /* ===================== Services ===================== */
 function svcFiltered(){
@@ -635,16 +635,16 @@ function tagsFor(s){
 function renderSvc(){
   var list = svcFiltered(), q = SF.q, out = $("svcOut");
   var orgCount = {}; list.forEach(function(s){ orgCount[s.org] = 1; });
-  $("svcInfo").textContent = fmt(list.length) + " xidm…ôt ¬∑ " + Object.keys(orgCount).length + " qurum g√∂st…ôrilir";
-  if (!list.length) { out.innerHTML = '<div class="card empty">Se√ßilmi≈ü filtrl…ôr…ô uyƒüun xidm…ôt tapƒ±lmadƒ±.</div>'; return; }
+  $("svcInfo").textContent = fmt(list.length) + " xidmət · " + Object.keys(orgCount).length + " qurum göstərilir";
+  if (!list.length) { out.innerHTML = '<div class="card empty">Seçilmiş filtrlərə uyğun xidmət tapılmadı.</div>'; return; }
   if (SF.view === "table") {
     var k = SF.sort.k, d = SF.sort.d;
     list = list.slice().sort(function(a,b){
       var x = k === "when" ? (a.year||"0") + String(a.mon+10).padStart(2,"0") : a[k], y = k === "when" ? (b.year||"0") + String(b.mon+10).padStart(2,"0") : b[k];
       return (x > y ? 1 : x < y ? -1 : 0) * d;
     });
-    var th = function(key, label){ return '<th data-k="'+key+'">'+label+(k === key ? '<span class="ar">'+(d>0?"‚Üë":"‚Üì")+'</span>' : "")+'</th>'; };
-    out.innerHTML = '<div class="card tbl-w"><table><thead><tr>'+th("no","#")+th("name","Xidm…ôtin adƒ±")+th("org","Qurum")+th("form","Forma")+th("plat","Platforma")+th("when","Tarix")+'</tr></thead><tbody>' +
+    var th = function(key, label){ return '<th data-k="'+key+'">'+label+(k === key ? '<span class="ar">'+(d>0?"↑":"↓")+'</span>' : "")+'</th>'; };
+    out.innerHTML = '<div class="card tbl-w"><table><thead><tr>'+th("no","#")+th("name","Xidmətin adı")+th("org","Qurum")+th("form","Forma")+th("plat","Platforma")+th("when","Tarix")+'</tr></thead><tbody>' +
       list.map(function(s){ return '<tr><td class="num">'+s.no+'</td><td>'+hl(s.name,q)+'</td><td class="muted">'+hl(s.org,q)+'</td><td>'+(s.form==="API"?'<span class="tag t-api">API</span>':'<span class="tag t-ifr">Iframe</span>')+'</td><td class="muted">'+esc(s.plat)+'</td><td class="muted" style="white-space:nowrap">'+esc(when(s.year, s.mon))+'</td></tr>'; }).join("") +
       '</tbody></table></div>';
     out.querySelectorAll("th").forEach(function(h){ h.addEventListener("click", function(){ var kk = h.getAttribute("data-k"); SF.sort = {k:kk, d: SF.sort.k === kk ? -SF.sort.d : 1}; renderSvc(); }); });
@@ -657,7 +657,7 @@ function renderSvc(){
     var g = groups[o], api = g.filter(function(s){ return s.form === "API"; }).length, ifr = g.length - api, total = S.filter(function(s){ return s.org === o; }).length;
     var open = autoOpen || SF.open[o];
     return '<div class="card org'+(open?" open":"")+'" data-org="'+esc(o)+'">' +
-      '<div class="org-h"><div class="org-ic">'+icon(o)+'</div><div style="min-width:0"><div class="org-n">'+hl(o,q)+'</div><div class="org-m">'+api+' API ¬∑ '+ifr+' Iframe'+(g.length !== total ? ' ¬∑ c…ômi '+total : '')+'</div></div><div class="org-c">'+g.length+'</div>' +
+      '<div class="org-h"><div class="org-ic">'+icon(o)+'</div><div style="min-width:0"><div class="org-n">'+hl(o,q)+'</div><div class="org-m">'+api+' API · '+ifr+' Iframe'+(g.length !== total ? ' · cəmi '+total : '')+'</div></div><div class="org-c">'+g.length+'</div>' +
       '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>' +
       '<div class="org-split"><i style="flex:'+api+';background:var(--s-api)"></i><i style="flex:'+ifr+';background:var(--s-iframe)"></i></div>' +
       '<div class="org-b">' + g.map(function(s){ return '<div class="sv"><span class="sv-n">'+hl(s.name,q)+'</span>'+tagsFor(s)+'<span class="yr">'+esc(when(s.year,s.mon))+'</span></div>'; }).join("") + '</div></div>';
@@ -672,9 +672,9 @@ function renderOrgPicker(){
   var names = Object.keys(by).sort(function(a,b){ return by[b] - by[a]; });
   $("orgList").innerHTML = names.filter(function(n){ return !q || norm(n).indexOf(q) !== -1; }).map(function(n){
     return '<label><input type="checkbox" value="'+esc(n)+'"'+(SF.orgs.indexOf(n) !== -1 ? " checked" : "")+'><span>'+esc(n)+'</span><small>'+by[n]+'</small></label>';
-  }).join("") || '<div class="empty" style="padding:16px">Tapƒ±lmadƒ±</div>';
-  $("orgBtnT").textContent = SF.orgs.length ? SF.orgs.length + " qurum se√ßilib" : "B√ºt√ºn qurumlar";
-  $("orgChips").innerHTML = SF.orgs.map(function(o){ return '<span class="chip on" data-org="'+esc(o)+'">'+esc(o)+' <span class="x">√ó</span></span>'; }).join("");
+  }).join("") || '<div class="empty" style="padding:16px">Tapılmadı</div>';
+  $("orgBtnT").textContent = SF.orgs.length ? SF.orgs.length + " qurum seçilib" : "Bütün qurumlar";
+  $("orgChips").innerHTML = SF.orgs.map(function(o){ return '<span class="chip on" data-org="'+esc(o)+'">'+esc(o)+' <span class="x">×</span></span>'; }).join("");
   $("orgChips").style.marginBottom = SF.orgs.length ? "6px" : "0";
 }
 function bindSvc(){
@@ -697,7 +697,7 @@ function bindSvc(){
   $("expandAll").addEventListener("click", function(){
     var cards = document.querySelectorAll("#svcOut .org"), anyClosed = Array.prototype.some.call(cards, function(c){ return !c.classList.contains("open"); });
     cards.forEach(function(c){ c.classList.toggle("open", anyClosed); SF.open[c.getAttribute("data-org")] = anyClosed; });
-    this.textContent = anyClosed ? "Hamƒ±sƒ±nƒ± baƒüla" : "Hamƒ±sƒ±nƒ± a√ß";
+    this.textContent = anyClosed ? "Hamısını bağla" : "Hamısını aç";
   });
   $("svcReset").addEventListener("click", function(){
     SF.q = ""; SF.form = ""; SF.plat = ""; SF.year = ""; SF.orgs = []; $("sQ").value = "";
@@ -706,8 +706,8 @@ function bindSvc(){
 }
 
 /* ===================== Data ===================== */
-function splitVeb(v){ return v ? v.split(/\s*,\s*/).filter(Boolean) : ["Kateqoriyasƒ±z"]; }
-function splitMob(v){ return v ? v.split(/\s+-\s+/).filter(Boolean) : ["Kateqoriyasƒ±z"]; }
+function splitVeb(v){ return v ? v.split(/\s*,\s*/).filter(Boolean) : ["Kateqoriyasız"]; }
+function splitMob(v){ return v ? v.split(/\s+-\s+/).filter(Boolean) : ["Kateqoriyasız"]; }
 function dataFiltered(){
   var q = DFL.q;
   return D.filter(function(d){
@@ -721,19 +721,19 @@ function dataFiltered(){
 }
 function renderData(){
   var list = dataFiltered(), q = DFL.q, out = $("dataOut");
-  $("dataInfo").textContent = list.length + " m…ôlumat g√∂st…ôrilir";
+  $("dataInfo").textContent = list.length + " məlumat göstərilir";
   // veb chips with counts
   var vc = {}; D.forEach(function(d){ splitVeb(d.veb).forEach(function(v){ vc[v] = (vc[v]||0) + 1; }); });
-  $("dVeb").innerHTML = '<span class="chip'+(DFL.veb.length?"":" on")+'" data-v="">B√ºt√ºn kateqoriyalar</span>' + Object.keys(vc).sort().map(function(v){
-    return '<span class="chip'+(DFL.veb.indexOf(v) !== -1 ? " on" : "")+'" data-v="'+esc(v)+'">'+esc(v.replace(" m…ôlumatlarƒ±m",""))+' <small>'+vc[v]+'</small></span>';
+  $("dVeb").innerHTML = '<span class="chip'+(DFL.veb.length?"":" on")+'" data-v="">Bütün kateqoriyalar</span>' + Object.keys(vc).sort().map(function(v){
+    return '<span class="chip'+(DFL.veb.indexOf(v) !== -1 ? " on" : "")+'" data-v="'+esc(v)+'">'+esc(v.replace(" məlumatlarım",""))+' <small>'+vc[v]+'</small></span>';
   }).join("");
   $("dVeb").style.marginBottom = "4px";
-  if (!list.length) { out.innerHTML = '<div class="card empty">Se√ßilmi≈ü filtrl…ôr…ô uyƒüun m…ôlumat tapƒ±lmadƒ±.</div>'; return; }
+  if (!list.length) { out.innerHTML = '<div class="card empty">Seçilmiş filtrlərə uyğun məlumat tapılmadı.</div>'; return; }
   if (DFL.view === "table") {
     var k = DFL.sort.k, dd = DFL.sort.d;
     list = list.slice().sort(function(a,b){ var x = a[k], y = b[k]; return (x > y ? 1 : x < y ? -1 : 0) * dd; });
-    var th = function(key, label){ return '<th data-k="'+key+'">'+label+(k === key ? '<span class="ar">'+(dd>0?"‚Üë":"‚Üì")+'</span>' : "")+'</th>'; };
-    out.innerHTML = '<div class="card tbl-w"><table><thead><tr>'+th("no","#")+th("name","M…ôlumat v…ô ya s…ôn…ôdin adƒ±")+th("veb","VEB kateqoriya")+th("mob","Mobile kateqoriya")+th("org","Qurum")+th("year","Tarix")+'</tr></thead><tbody>' +
+    var th = function(key, label){ return '<th data-k="'+key+'">'+label+(k === key ? '<span class="ar">'+(dd>0?"↑":"↓")+'</span>' : "")+'</th>'; };
+    out.innerHTML = '<div class="card tbl-w"><table><thead><tr>'+th("no","#")+th("name","Məlumat və ya sənədin adı")+th("veb","VEB kateqoriya")+th("mob","Mobile kateqoriya")+th("org","Qurum")+th("year","Tarix")+'</tr></thead><tbody>' +
       list.map(function(d){ return '<tr><td class="num">'+d.no+'</td><td>'+hl(d.name,q)+'</td><td class="muted">'+(d.veb ? hl(d.veb,q) : '<span class="tag t-pnd">Saytda yoxdur</span>')+'</td><td class="muted">'+hl(d.mob,q)+'</td><td class="muted">'+hl(d.org,q)+'</td><td class="muted" style="white-space:nowrap">'+esc(when(d.year,d.mon))+'</td></tr>'; }).join("") +
       '</tbody></table></div>';
     out.querySelectorAll("th").forEach(function(h){ h.addEventListener("click", function(){ var kk = h.getAttribute("data-k"); DFL.sort = {k:kk, d: DFL.sort.k === kk ? -DFL.sort.d : 1}; renderData(); }); });
@@ -747,15 +747,15 @@ function renderData(){
         g[c].map(function(d){ return '<div class="di"><span class="sv-n">'+hl(d.name,q)+'</span><span class="di-q">'+esc(d.org)+'</span></div>'; }).join("") + '</div>';
     }).join("") + '</div>';
   };
-  out.innerHTML = '<div class="dgrid">' + col("VEB kateqoriyalarƒ±", splitVeb, "veb") + col("Mobile kateqoriyalarƒ±", splitMob, "mob") + '</div>';
+  out.innerHTML = '<div class="dgrid">' + col("VEB kateqoriyaları", splitVeb, "veb") + col("Mobile kateqoriyaları", splitMob, "mob") + '</div>';
 }
 function bindData(){
   $("dQ").addEventListener("input", function(){ DFL.q = norm(this.value); renderData(); });
   var mc = {}; D.forEach(function(d){ splitMob(d.mob).forEach(function(m){ mc[m] = (mc[m]||0) + 1; }); });
-  $("dMob").innerHTML = '<option value="">Mobile: b√ºt√ºn kateqoriyalar</option>' + Object.keys(mc).sort().map(function(m){ return '<option value="'+esc(m)+'">'+esc(m)+' ('+mc[m]+')</option>'; }).join("");
+  $("dMob").innerHTML = '<option value="">Mobile: bütün kateqoriyalar</option>' + Object.keys(mc).sort().map(function(m){ return '<option value="'+esc(m)+'">'+esc(m)+' ('+mc[m]+')</option>'; }).join("");
   $("dMob").addEventListener("change", function(){ DFL.mob = this.value; renderData(); });
   var oc = {}; D.forEach(function(d){ if (d.org) oc[d.org] = (oc[d.org]||0) + 1; });
-  $("dOrg").innerHTML = '<option value="">Qurum: hamƒ±sƒ±</option>' + Object.keys(oc).sort().map(function(o){ return '<option value="'+esc(o)+'">'+esc(o)+' ('+oc[o]+')</option>'; }).join("");
+  $("dOrg").innerHTML = '<option value="">Qurum: hamısı</option>' + Object.keys(oc).sort().map(function(o){ return '<option value="'+esc(o)+'">'+esc(o)+' ('+oc[o]+')</option>'; }).join("");
   $("dOrg").addEventListener("change", function(){ DFL.org = this.value; renderData(); });
   var ys = {}; D.forEach(function(d){ if (d.year) ys[d.year] = 1; });
   fillSeg("dYear", Object.keys(ys).sort());
@@ -787,10 +787,10 @@ function applyTheme(t){
   if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme");
   var b = document.getElementById("themeBtn"); if (b) b.innerHTML = isDark() ? SUN : MOON;
 }
-function svcRows(list){ return [["‚Ññ","Qurum","Xidm…ôtin adƒ±","ƒ∞nteqrasiya formasƒ±","Platforma","ƒ∞nteqrasiya ili","ƒ∞nteqrasiya ayƒ±"]].concat(list.map(function(s,i){ return [i+1, s.org, s.name, s.form, s.plat, s.year ? +s.year : "", s.mon >= 0 ? MONTHS[s.mon] : ""]; })); }
-function dataRows(list){ return [["‚Ññ","M…ôlumat v…ô ya s…ôn…ôdin adƒ±","VEB kateqoriya","Mobile kateqoriya","Qurum","ƒ∞l","Ay","PDF/Share"]].concat(list.map(function(d,i){ return [i+1, d.name, d.veb, d.mob, d.org, d.year ? +d.year : "", d.mon >= 0 ? MONTHS[d.mon] : "", d.pdf]; })); }
+function svcRows(list){ return [["№","Qurum","Xidmətin adı","İnteqrasiya forması","Platforma","İnteqrasiya ili","İnteqrasiya ayı"]].concat(list.map(function(s,i){ return [i+1, s.org, s.name, s.form, s.plat, s.year ? +s.year : "", s.mon >= 0 ? MONTHS[s.mon] : ""]; })); }
+function dataRows(list){ return [["№","Məlumat və ya sənədin adı","VEB kateqoriya","Mobile kateqoriya","Qurum","İl","Ay","PDF/Share"]].concat(list.map(function(d,i){ return [i+1, d.name, d.veb, d.mob, d.org, d.year ? +d.year : "", d.mon >= 0 ? MONTHS[d.mon] : "", d.pdf]; })); }
 function writeXlsx(sheets, file){
-  if (typeof XLSX === "undefined") { alert("Excel kitabxanasƒ± y√ºkl…ônm…ôdi. ƒ∞nternet baƒülantƒ±sƒ±nƒ± yoxlayƒ±n."); return; }
+  if (typeof XLSX === "undefined") { alert("Excel kitabxanası yüklənmədi. İnternet bağlantısını yoxlayın."); return; }
   var wb = XLSX.utils.book_new();
   sheets.forEach(function(s){
     var ws = XLSX.utils.aoa_to_sheet(s.rows);
@@ -800,12 +800,12 @@ function writeXlsx(sheets, file){
   XLSX.writeFile(wb, file);
 }
 function doExport(kind){
-  if (kind === "svc") writeXlsx([{name:"Xidm…ôtl…ôr", rows:svcRows(S)}], "mygov_xidmetler.xlsx");
-  else if (kind === "data") writeXlsx([{name:"M…ôlumatlar", rows:dataRows(D)}], "mygov_melumatlar.xlsx");
-  else if (kind === "all") writeXlsx([{name:"Xidm…ôtl…ôr", rows:svcRows(S)},{name:"M…ôlumatlar", rows:dataRows(D)}], "mygov_hamisi.xlsx");
+  if (kind === "svc") writeXlsx([{name:"Xidmətlər", rows:svcRows(S)}], "mygov_xidmetler.xlsx");
+  else if (kind === "data") writeXlsx([{name:"Məlumatlar", rows:dataRows(D)}], "mygov_melumatlar.xlsx");
+  else if (kind === "all") writeXlsx([{name:"Xidmətlər", rows:svcRows(S)},{name:"Məlumatlar", rows:dataRows(D)}], "mygov_hamisi.xlsx");
   else if (kind === "view") {
-    if (activeTab === "svc") writeXlsx([{name:"Xidm…ôtl…ôr", rows:svcRows(svcFiltered())}], "mygov_xidmetler_filtr.xlsx");
-    else writeXlsx([{name:"M…ôlumatlar", rows:dataRows(dataFiltered())}], "mygov_melumatlar_filtr.xlsx");
+    if (activeTab === "svc") writeXlsx([{name:"Xidmətlər", rows:svcRows(svcFiltered())}], "mygov_xidmetler_filtr.xlsx");
+    else writeXlsx([{name:"Məlumatlar", rows:dataRows(dataFiltered())}], "mygov_melumatlar_filtr.xlsx");
   }
 }
 
